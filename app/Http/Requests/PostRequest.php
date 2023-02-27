@@ -27,7 +27,12 @@ class PostRequest extends FormRequest
         return [
             'title'         => 'required|unique:posts,title|max:255',
             'description'         => 'required',
-            'body'         => 'required',
+            'dormitorios'         => 'required|numeric',
+            'banheiros'         => 'required|numeric',
+            'vagas_garagem'         => 'required|numeric',
+            'metro_quadrado_total'         => 'required',
+            'metro_quadrado_privado'         => 'required',
+            'valor'         => 'required',
             'photo'         => 'required',
         ];
     }

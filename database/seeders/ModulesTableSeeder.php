@@ -18,8 +18,9 @@ class ModulesTableSeeder extends Seeder
 
         DB::table('modules')->insert([
             [
-                'title' => 'Usuarios',
+                'title' => 'Usuários',
                 'url' => 'users',
+                'icon' => 'fas fa-fw fa-user',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -30,44 +31,33 @@ class ModulesTableSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'title' => 'Páginas',
-                'url' => 'pages',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
                 'title' => 'Contato',
                 'url' => 'contacts',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'title' => 'Trabalhe Conosco',
-                'url' => 'workwithus',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'title' => 'Postagens',
+                'title' => 'Oportunidades',
                 'url' => 'posts',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'title' => 'Produtos',
-                'url' => 'products',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'title' => 'Modulos',
+                'title' => 'Módulos',
                 'url' => 'modules',
+                'icon' => 'fas fa-fw fa-database',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'title' => 'Categorias',
                 'url' => 'categories',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'title' => 'Tags',
+                'url' => 'tags',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

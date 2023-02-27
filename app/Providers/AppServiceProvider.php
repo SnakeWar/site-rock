@@ -31,12 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
 
             $menus = DB::table('modules')
-                ->whereNotIn('title', ['Usuarios', 'Modulos', 'Logs', 'Grupos'])
+                ->whereNotIn('title', ['Usuários', 'Módulos', 'Logs', 'Grupos'])
                 ->get();
 
             foreach($menus as $menu){
-
-                $arrayMenu = array('text' => '', 'url' => '', 'icon' => '');
 
                 $event->menu->addAfter('1' ,[
                     'text' => $menu->title,

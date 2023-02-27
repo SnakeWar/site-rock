@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\WorkwithusRequest;
 use App\Models\Lawyer;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Contact;
@@ -32,40 +33,22 @@ class PagesController extends Controller
      */
     private $category;
     /**
-     * @var Lawyer
+    * @var Tag
      */
-    private $lawyer;
+    private $tag;
     /**
      * @var Post
      */
     private $post;
-    /**
-     * @var Gallery
-     */
-    private $gallery;
-    /**
-     * @var Response
-     */
-    private $response;
-    /**
-     * @var Page
-     */
-    private $page;
-    /**
-     * @var Product
-     */
-    private $product;
-    /**
-     * @var Subsection
-     */
-    private $subsections;
 
     public function __construct(Category   $category,
                                 Post       $post,
+                                Tag $tag
     )
     {
         $this->category = $category;
         $this->post = $post;
+        $this->tag = $tag;
     }
 
     /**
@@ -77,10 +60,10 @@ class PagesController extends Controller
     {
         //dd(date('Y-m-d'));
         $highlight = $this->post->whereStatus(1)
-            ->whereHighlight(1)
+            //->whereHighlight(1)
             ->whereDate('published_at', '<=', date('Y-m-d'))
             ->orderBy('id', 'desc')
-            ->limit(3)
+            //->limit(3)
             ->get();
 
         return view('pages.index', [

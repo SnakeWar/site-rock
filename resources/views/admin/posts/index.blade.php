@@ -25,7 +25,7 @@
                 <th>#</th>
                 <th>Título</th>
                 <th>Foto</th>
-                <th>Autor</th>
+                <th>Usuário</th>
                 <th>Ações</th>
                 </thead>
                 <tbody>

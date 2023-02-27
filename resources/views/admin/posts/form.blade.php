@@ -30,37 +30,42 @@
         <div class="card-body">
             <form action="{{ isset($model) ? route($admin . '.update', $model->id) : route($admin. '.store')}}"
                   method="post" enctype="multipart/form-data">
-
                 @csrf
                 @if(!empty($model))
                     @method('PUT')
                 @endif
-                <div class="form-group">
-                    <label for="">Título</label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                           value="{{ isset($model) ? $model->title : old('title') }}">
-                    @error('title')
-                    <div class="invalid-feedback">
-                        {{$message}}
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="">Título</label>
+                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                                   value="{{ isset($model) ? $model->title : old('title') }}">
+                            @error('title')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
                     </div>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="">Descrição</label>
-                    <input type="text" name="description"
-                           class="form-control @error('description') is-invalid @enderror"
-                           value="{{ isset($model) ? $model->title : old('description') }}">
-                    @error('description')
-                    <div class="invalid-feedback">
-                        {{$message}}
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="">Descrição</label>
+                            <input type="text" name="description"
+                                   class="form-control @error('description') is-invalid @enderror"
+                                   value="{{ isset($model) ? $model->title : old('description') }}">
+                            @error('description')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
                     </div>
-                    @enderror
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="dormitorios">Qtd. dormitórios</label>
-                            <input type="text" name="source_name"
+                            <input type="number" name="dormitorios"
                                    class="form-control @error('dormitorios') is-invalid @enderror"
                                    value="{{ isset($model) ? $model->dormitorios : old('dormitorios') }}">
                             @error('dormitorios')
@@ -70,10 +75,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="banheiros">Qtd. banheiros</label>
-                            <input type="text" name="banheiros"
+                            <input type="number" name="banheiros"
                                    class="form-control @error('banheiros') is-invalid @enderror"
                                    value="{{ isset($model) ? $model->banheiros : old('banheiros') }}">
                             @error('banheiros')
@@ -83,12 +88,10 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="vagas_garagem">Qtd. vagas de garagem</label>
-                            <input type="text"
+                            <input type="number"
                                    name="vagas_garagem"
                                    class="form-control
                                    @error('vagas_garagem') is-invalid @enderror"
@@ -101,7 +104,9 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="metro_quadrado_total">Metro quadrado total</label>
                             <input type="text" name="metro_quadrado_total"
@@ -116,9 +121,7 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="metro_quadrado_privado">Metro quadrado privado</label>
                             <input type="text"
@@ -134,14 +137,14 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="valor">Valor</label>
-                            <input type="text" name="metro_quadrado_total"
+                            <input type="text" name="valor"
                                    id="price"
                                    class="form-control
                                    @error('valor') is-invalid @enderror"
-                                   value="{{ isset($model) ? $model->valor :
+                                   value="{{ isset($model) ? 'R$ ' . number_format($model->valor, 2, ',', '.') :
                                    old('valor') }}">
                             @error('valor')
                             <div class="invalid-feedback">
@@ -151,38 +154,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group date">
-                    <label for="">Data de Publicação</label>
-                    <input type="text" name="published_at"
-                           class="datetimepicker form-control @error('published_at') is-invalid @enderror"
-                           value="{{ isset($model) ? Helper::convertdata_tosite($model->published_at) : old('published_at') }}">
-                    @error('published_at')
-                    <div class="invalid-feedback">
-                        {{$message}}
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group date">
+                            <label for="">Data de Publicação</label>
+                            <input type="text" name="published_at"
+                                   class="datetimepicker form-control @error('published_at') is-invalid @enderror"
+                                   value="{{ isset($model) ? Helper::convertdata_tosite($model->published_at) : old('published_at') }}">
+                            @error('published_at')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
                     </div>
-                    @enderror
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="categories">Categorias</label>
+                            <select name="categories[]" class="form-control multiple-select" multiple>
+                                @foreach($categories as $category)
+                                    <option
+                                        value="{{$category->id}}" {{ isset($model) ? (($model->categories->contains($category)) ? 'selected' : '') : '' }}>{{$category->title}}</option>
+                                    {{$category->id}}|{{$category->title}}
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <select name="tags[]" class="form-control multiple-select" multiple>
+                                @foreach($tags as $tag)
+                                    <option
+                                        value="{{$tag->id}}" {{ isset($model) ? (($model->tags->contains($tag)) ? 'selected' : '') : '' }}>{{$tag->title}}</option>
+                                    {{$tag->id}}|{{$tag->title}}
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="categories">Categorias</label>
-                    <select name="categories[]" class="form-control multiple-select" multiple>
-                        @foreach($categories as $category)
-                            <option
-                                value="{{$category->id}}" {{ isset($model) ? (($model->categories->contains($category)) ? 'selected' : '') : '' }}>{{$category->title}}</option>
-                            {{$category->id}}|{{$category->title}}
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="tags">Tags</label>
-                    <select name="tags[]" class="form-control multiple-select" multiple>
-                        @foreach($tags as $tag)
-                            <option
-                                value="{{$tag->id}}" {{ isset($model) ? (($model->tags->contains($tag)) ? 'selected' : '') : '' }}>{{$tag->title}}</option>
-                            {{$tag->id}}|{{$tag->title}}
-                        @endforeach
-                    </select>
-                </div>
-
                 <div class="form-group">
                     <label for="">Foto</label>
                     <input type="file" class="dropify form-control @error('photo') is-invalid @enderror" name="photo">

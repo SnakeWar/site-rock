@@ -22,13 +22,17 @@ class CreatePostsTable extends Migration
             $table->longText('photo')->nullable();
             $table->string('slug');
             $table->text('description')->nullable();
-            $table->string('dormitorios');
-            $table->string('banheiros');
-            $table->string('vagas_garagem');
-            $table->string('metro_quadrado_total');
-            $table->string('metro_quadrado_privado');
-            $table->decimal('valor');
-            $table->integer('status')->default(0);
+            $table->integer('dormitorios')
+                ->default(0);
+            $table->integer('banheiros')
+                ->default(0);
+            $table->integer('vagas_garagem')
+                ->default(0);
+            $table->integer('metro_quadrado_total')
+                ->default(0);
+            $table->integer('metro_quadrado_privado')
+                ->default(0);
+            $table->decimal('valor', 15, 2);
             $table->tinyInteger('highlight')->default(0);
             $table->timestamps();
             $table->softDeletes();

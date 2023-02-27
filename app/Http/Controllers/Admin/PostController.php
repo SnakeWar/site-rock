@@ -5,17 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\User;
 use App\Models\Post;
 use App\Traits\Functions;
 use App\Traits\UploadTraits;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -28,8 +24,8 @@ class PostController extends Controller
         $this->model = $post;
         $this->category = $category;
         $this->tag = $tag;
-        $this->title = 'Postagens';
-        $this->subtitle = 'Postagem';
+        $this->title = 'Oportunidades';
+        $this->subtitle = 'Oportunidade';
         $this->middleware('auth');
         $this->admin = 'admin.posts';
         $this->view = 'posts';
@@ -38,7 +34,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -54,7 +50,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -81,24 +77,13 @@ class PostController extends Controller
         $data = $request->except(['categories', 'tags']);
         $data['slug'] = Str::slug($data['title']);
         $data['published_at'] = \Helper::convertdata_todb($data['published_at']);
+        $data['valor'] = \Helper::convertCurrencyBRToUS($data['valor']);
         $categories = $request->get('categories', null);
         $tags = $request->get('tags', null);
         $data['user_id'] = Auth::user()->id;
         if($request->hasFile('photo')) {
-            if (!is_dir(public_path('/storage/thumbnail' . '/' . $this->view))) {
-                mkdir(public_path('/storage/thumbnail' . '/' . $this->view), 0775, true);
-            }
             // Pega a imagem e salva no storage
             $data['photo'] = $this->imageUpload($request->file('photo'), $this->view);
-            // Pega a imagem já salva e redimensiona proporcionalmente
-            $imageResized = Image::make(public_path("/storage/") . "{$data['photo']}")
-                ->save(public_path("/storage/") . "{$data['photo']}", 60)
-                // Redimensionada a imagem
-                ->resize(300, 300, function($constraint){
-                    $constraint->aspectRatio();
-                })
-                // Pega a imagem redimensionada e salva na pasta thumbnail
-                ->save(public_path("/storage/thumbnail/") . $data['photo']);
         }
         $post = $this->model->create($data);
 
@@ -154,31 +139,16 @@ class PostController extends Controller
     public function update(PostUpdateRequest $request, $id)
     {
         $data = $request->except(['categories', 'photos', 'tags']);
-        //dd(convertdata_todb($data['published_at']));
         $data['published_at'] = \Helper::convertdata_todb($data['published_at']);
+        $data['valor'] = \Helper::convertCurrencyBRToUS($data['valor']);
         $categories = $request->get('categories', null);
         $tags = $request->get('tags', null);
 
         $post = $this->model->find($id);
 
         if($request->hasFile('photo')) {
-            if(Storage::disk('public')->exists($post->photo)){
-                Storage::disk('public')->delete($post->photo);
-                Storage::disk('public/thumbnail')->delete($post->photo);
-            }
-            if (!is_dir(public_path('/storage/thumbnail' . '/' . $this->view))) {
-                mkdir(public_path('/storage/thumbnail' . '/' . $this->view), 0775, true);
-            }
             // Pega a imagem e salva no storage
-            $data['photo'] = $this->imageUpload($request->file('photo'), $this->view);
-            // Pega a imagem já salva e redimensiona proporcionalmente
-            $imageResized = Image::make(public_path("/storage/") . "{$data['photo']}")
-                ->save(public_path("/storage/") . "{$data['photo']}", 60)
-                ->resize(300, 300, function($constraint){
-                    $constraint->aspectRatio();
-                })
-                // Salva a imagem redimensionada e salva na pasta thumbnail
-                ->save(public_path("/storage/thumbnail/") . $data['photo']);
+            $data['photo'] = $this->imageUpload($request->file('photo'), $this->view, $post->photo);
         }
         $post->update($data);
 
@@ -186,7 +156,7 @@ class PostController extends Controller
             $post->categories()->sync($categories);
         if(!is_null($tags))
             $post->tags()->sync($tags);
-
+        //dd($tags, $categories);
         if($request->hasFile('photos')){
             $images = $this->imageUpload($request->file('photos'), 'photo');
             $post->photos()->createMany($images);

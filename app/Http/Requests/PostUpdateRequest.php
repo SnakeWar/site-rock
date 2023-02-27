@@ -25,9 +25,14 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|max:255',
-            'description'         => 'required',
-            'body'         => 'required',
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'dormitorios' => 'required|numeric',
+            'banheiros' => 'required|numeric',
+            'vagas_garagem' => 'required|numeric',
+            'metro_quadrado_total' => 'required|numeric',
+            'metro_quadrado_privado' => 'required|numeric',
+            'valor' => 'required',
         ];
     }
     public function messages()
