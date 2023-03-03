@@ -48,3 +48,14 @@
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+.active>.page-link, .page-link.active {
+    color: var(--bs-pagination-active-color);
+    background-color: #212529;
+    border-color: #212529;
+}
+.page-link:hover {
+    color: #212529;
+}
+.page-link, .page-link:focus {
+    color: #212529;
+}

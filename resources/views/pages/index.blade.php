@@ -17,7 +17,42 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-
+                <div class="row">
+                    <form action="{{route('buscar')}}" method="POST">
+                        @method('POST')
+                        @csrf
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-3">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Escreva o que procura aqui...">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <span class="input-group-text text-bg-dark">Categoria</span>
+                                    <select name="category" class="form-control">
+                                        <option value="">--- Selecione uma Categoria ---</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <span class="input-group-text text-bg-dark">Tipo</span>
+                                    <select name="tag" class="form-control">
+                                        <option value="">--- Selecione um Tipo ---</option>
+                                        @foreach($tags as $tag)
+                                            <option value="{{$tag->id}}">{{$tag->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col"><button type="submit" class="btn text-bg-dark" style="width: 100%">Procurar</button></div>
+                        </div>
+                    </form>
+                </div>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     @foreach($highlight as $item)
                         <div class="col">
@@ -35,16 +70,16 @@
                                         <small class="text-muted">{{$item->dormitorios}} <i class="fas fa fa-bed"></i></small>
                                         @endif
                                         @if($item->banheiros > 0)
-                                        <small class="text-muted"> | {{$item->banheiros}} <i class="fas fa fa-bath"></i></small>
+                                        <small class="text-muted">{{$item->banheiros}} <i class="fas fa fa-bath"></i></small>
                                         @endif
                                         @if($item->vagas_garagem > 0)
-                                        <small class="text-muted"> | {{$item->vagas_garagem}} <i class="fas fa fa-car"></i></small>
-                                        @endif
-                                        @if($item->metro_quadrado_total > 0)
-                                        <small class="text-muted"> | {{$item->metro_quadrado_total}} <strong>m² Privado</strong></small>
+                                        <small class="text-muted">{{$item->vagas_garagem}} <i class="fas fa fa-car"></i></small>
                                         @endif
                                         @if($item->metro_quadrado_privado > 0)
-                                            <small class="text-muted"> | {{$item->metro_quadrado_privado}} <strong>m² Total</strong></small>
+                                            <small class="text-muted">{{$item->metro_quadrado_privado}} <strong>m² Privado</strong></small>
+                                        @endif
+                                        @if($item->metro_quadrado_total > 0)
+                                        <small class="text-muted">{{$item->metro_quadrado_total}} <strong>m² Total</strong></small>
                                         @endif
                                         @if($item->valor > 0)
                                         <small class="text-muted"> | <strong>R$</strong> {{number_format($item->valor)}}</small>
@@ -54,6 +89,11 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+                <div style="margin-top: 15px;" class="row">
+                    <div class="col-2">
+                        {{$highlight->appends(Request::get('search', 'category', 'tag'))->links('vendor.pagination.bootstrap-4')}}
+                    </div>
                 </div>
             </div>
         </div>

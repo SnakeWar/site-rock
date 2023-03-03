@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->longText('photo')->nullable();
             $table->string('slug');
             $table->text('description')->nullable();
+            $table->longText('body')->nullable();
             $table->integer('dormitorios')
                 ->default(0);
             $table->integer('banheiros')

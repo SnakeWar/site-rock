@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
+use App\Http\Requests\HomeRequest;
 use App\Http\Requests\WorkwithusRequest;
 use App\Models\Lawyer;
 use App\Models\Tag;
@@ -56,18 +57,37 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(HomeRequest $request)
     {
-        //dd(date('Y-m-d'));
-        $highlight = $this->post->whereStatus(1)
-            //->whereHighlight(1)
-            ->whereDate('published_at', '<=', date('Y-m-d'))
-            ->orderBy('id', 'desc')
-            //->limit(3)
-            ->get();
+        $highlight = $this->post
+            ->with('categories')
+            ->with('tags')
+            ->whereStatus(1)
+            ->whereDate('published_at', '<=', date('Y-m-d'));
+
+        $categories = $this->category->all();
+        $tags = $this->tag->all();
+
+        if ($request->search) {
+            $highlight->where('title', 'like', '%' . $request->input('search') . '%');
+        }
+        if ($request->category) {
+            $category = $request->input('category');
+            $highlight->whereHas('categories', function($q) use($category) {
+                $q->where('categories.id', $category);
+            });
+        }
+        if ($request->tag) {
+            $tag = $request->input('tag');
+            $highlight->whereHas('tags', function($q) use($tag) {
+                $q->where('tags.id', $tag);
+            });
+        }
 
         return view('pages.index', [
-            'highlight' => $highlight,
+            'highlight' => $highlight->orderBy('id', 'desc')->paginate(3)->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
+            'categories' => $categories,
+            'tags' => $tags,
             'pagina' => 'Home',
         ]);
     }

@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events): void
     {
-        Paginator::useBootstrap();
+        Paginator::useBootstrapFive();
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
