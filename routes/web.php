@@ -41,6 +41,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('modules', App\Http\Controllers\Admin\ModuleController::class)->middleware('can:read_modules');
 
-    Route::post('post_photo/remove', [App\Http\Controllers\Admin\PostPhotosController::class, 'removePhoto'])->name('post_photo_remove')->middleware('can:delete_posts');
+    Route::post('post_photo/remove', [App\Http\Controllers\Admin\PostPhotosController::class, 'removePhoto'])
+        ->name('post_photo_remove')
+        ->middleware('can:delete_posts');
+    Route::post('post_photo/add/{id}', [App\Http\Controllers\Admin\PostPhotosController::class, 'addPhotos'])
+        ->name('post_photo_add')
+        ->middleware('can:update_posts');
 });
 

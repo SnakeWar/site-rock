@@ -32,17 +32,18 @@ trait UploadTraits
         if (!is_dir(public_path('/storage/thumbnail' . '/' . $dir))) {
             mkdir(public_path('/storage/thumbnail' . '/' . $dir), 0775, true);
         }
-        foreach ($images as $image) {
-            $uploadImages[] = [$imageColumn => $image->store($dir, 'public')];
+        $uploadImages = [];
+        foreach ($images as $key => $image) {
+            array_push($uploadImages, [$imageColumn => $image->store($dir, 'public')]);
             // Pega a imagem já salva e redimensiona proporcionalmente
-            Image::make(public_path("/storage/") . $image)
-                ->save(public_path("/storage/") . $image, 60)
+            Image::make(public_path("/storage/") . $uploadImages[$key]['photo'])
+                ->save(public_path("/storage/") . $uploadImages[$key]['photo'], 60)
                 // Redimensionada a imagem
                 ->resize(300, 300, function($constraint){
                     $constraint->aspectRatio();
                 })
                 // Pega a imagem redimensionada e salva na pasta thumbnail
-                ->save(public_path("/storage/thumbnail/") . $image);
+                ->save(public_path("/storage/thumbnail/") . $uploadImages[$key]['photo']);
         }
         return $uploadImages;
     }

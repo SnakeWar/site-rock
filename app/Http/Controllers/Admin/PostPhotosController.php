@@ -3,15 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\PostPhotos;
+use App\Traits\Functions;
+use App\Traits\UploadTraits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PostPhotosController extends Controller
 {
-    public function __construct()
+    use UploadTraits, Functions;
+
+    private $model;
+
+    public function __construct(Post $model)
     {
         $this->middleware('auth');
+        $this->view = 'posts/photos';
+        $this->model = $model;
+    }
+
+    public function addPhotos(Request $request, int $id) {
+        $post = $this->model->find($id);
+        if($request->hasFile('photos')){
+            $images = $this->imagesUpload($request->file('photos'), $this->view, 'photo');
+            $post->photos()->createMany($images);
+            flash('Foto(s) adicionadas com Sucesso!')->success();
+            return redirect()->route('admin.posts.edit', ['post' => $id])->withSuccess('Foto(s) adicionadas com sucesso!');
+        }
     }
 
     public function removePhoto(Request $request){

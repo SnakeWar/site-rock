@@ -31,7 +31,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text text-bg-dark">Categoria</span>
                                     <select name="category" class="form-control">
-                                        <option value="">--- Selecione uma Categoria ---</option>
+                                        <option value="">--- Selecione ---</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{$category->title}}</option>
                                         @endforeach
@@ -42,7 +42,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text text-bg-dark">Tipo</span>
                                     <select name="tag" class="form-control">
-                                        <option value="">--- Selecione um Tipo ---</option>
+                                        <option value="">--- Selecione ---</option>
                                         @foreach($tags as $tag)
                                             <option value="{{$tag->id}}">{{$tag->title}}</option>
                                         @endforeach
@@ -54,10 +54,19 @@
                     </form>
                 </div>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    @foreach($highlight as $item)
+                    @foreach($highlight ?? [] as $item)
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="{{asset("storage/".$item->photo)}}" alt="">
+                                <div class="owl-carousel">
+                                    <div>
+                                        <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">
+                                    </div>
+                                    @foreach($item->photos as $photo)
+                                        <div>
+                                            <img src="{{asset("storage/thumbnail/".$photo->photo)}}" alt="{{$item->title}}">
+                                        </div>
+                                    @endforeach
+                                </div>
                                 <div class="card-body">
                                     <p class="card-text bold">{{$item->title}}</p>
                                     <p class="card-text">{{$item->description}}</p>
@@ -90,7 +99,7 @@
                         </div>
                     @endforeach
                 </div>
-                <div style="margin-top: 15px;" class="row">
+                <div style="margin-top: 15px;" class="row align-content-center paginacao">
                     <div class="col-2">
                         {{$highlight->appends(Request::get('search', 'category', 'tag'))->links('vendor.pagination.bootstrap-4')}}
                     </div>
@@ -99,4 +108,30 @@
         </div>
 
     </main>
+@endsection
+@section('js')
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                loop:true,
+                margin:10,
+                responsiveClass:true,
+                autoHeight:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        loop:true
+                    },
+                    600:{
+                        items:1,
+                        loop:true
+                    },
+                    1000:{
+                        items:1,
+                        loop:true
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

@@ -62,6 +62,7 @@ class PagesController extends Controller
         $highlight = $this->post
             ->with('categories')
             ->with('tags')
+            ->with('photos')
             ->whereStatus(1)
             ->whereDate('published_at', '<=', date('Y-m-d'));
 
@@ -83,7 +84,7 @@ class PagesController extends Controller
                 $q->where('tags.id', $tag);
             });
         }
-
+//dd($highlight->get()[10]->photos[0]->photo);
         return view('pages.index', [
             'highlight' => $highlight->orderBy('id', 'desc')->paginate(3)->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
             'categories' => $categories,

@@ -47,12 +47,15 @@
 <div id="preloader">
     <div class="inner">
         <div class="pulsex">
-            <img class="w-100" src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}">
+            <img class="w-100" src="{{ asset('assets/img/logo.png') }}">
         </div>
     </div>
 </div>
 {{--Acessibilidade--}}
 <body id="header-top">
+<div class="whatsapp">
+    <a href="whatsapp-button" href=""><i class="fa fa-4x fa-whatsapp fa-"></i></a>
+</div>
 {{--<a href="#" id="open-acessibilidade"><img src="{{asset('assets/img/icons/acessibilidade.svg')}}"></a>--}}
 
 {{--        <section class="acessibilidade">--}}

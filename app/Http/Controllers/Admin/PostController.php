@@ -150,6 +150,7 @@ class PostController extends Controller
             // Pega a imagem e salva no storage
             $data['photo'] = $this->imageUpload($request->file('photo'), $this->view, $post->photo);
         }
+
         $post->update($data);
 
         if(!is_null($categories))
@@ -157,12 +158,6 @@ class PostController extends Controller
         if(!is_null($tags))
             $post->tags()->sync($tags);
         //dd($tags, $categories);
-        if($request->hasFile('photos')){
-            $images = $this->imageUpload($request->file('photos'), 'photo');
-            $post->photos()->createMany($images);
-            flash('Foto(s) adicionadas com Sucesso!')->success();
-            return redirect()->back();
-        }
 
         flash($this->subtitle . ' Atualizada com Sucesso!')->success();
         return redirect()->route($this->admin . '.index');

@@ -229,6 +229,39 @@
 
             </form>
         </div>
+        <div class="card-footer">
+            <hr>
+            <form action="{{route('admin.post_photo_add', $model->id)}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="photosAdd">Galeria</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" name="photos[]" class="custom-file-input @error('photo') is-invalid @enderror" id="photos" aria-describedby="photosAdd" multiple>
+                        <label class="custom-file-label" for="photos">Escolha suas fotos</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-primary" id="inputGroupFileAddon04">Enviar Fotos</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                @foreach($model->photos as $photo)
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <form action="{{route('admin.post_photo_remove')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="photoName" value="{{$photo->photo}}">
+                            <button type="submit" class="btn btn-sm btn-danger my-2"><i class="fa fa-trash"></i></button>
+                        </form>
+                        <img src="{{asset('storage/' . $photo->photo)}}" alt="" class="img-thumbnail">
+
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+        </div>
     </div>
 
 @endsection
