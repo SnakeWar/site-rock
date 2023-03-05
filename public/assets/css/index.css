@@ -136,8 +136,8 @@
     right: 15px;
     top: 40%;
 }
-.whatsapp a i {
-    color: forestgreen;
+.whatsapp a img {
+    width: 50px;
 }
 .paginacao div {
     display: block!important;
@@ -146,4 +146,30 @@
 }
 .logo {
     width: 100px;
+}
+.logo-footer {
+    width: 100px;
+}
+.redes-sociais li a i {
+    color: white !important;
+    font-size: 30px;
+    margin-left: 10px;
+}
+/*Configuração Owl Carousel */
+.owl-nav button {
+    background: unset!important;
+    position: absolute;
+    top: 50%;
+    transform: scale(1);
+    transition: .6s;
+    margin: 0!important;
+}
+.owl-nav button.owl-prev {
+    left: 0;
+}
+.owl-nav button.owl-next {
+    right: 0;
+}
+.owl-nav button:hover {
+    transform: scale(1.50);
 }

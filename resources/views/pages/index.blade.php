@@ -114,9 +114,14 @@
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({
                 loop:true,
-                margin:10,
-                responsiveClass:true,
-                autoHeight:true,
+                margin:0,
+                nav:true,
+                dots:false,
+                autoplay:true,
+                autoplayTimeout:5000,
+                autoplayHoverPause:true,
+                autoHeight: true,
+                navText: ["<img style='color:black' src='{{env('APP_URL')}}/assets/img/icons/btn-prev.svg'>","<img src='{{env('APP_URL')}}/assets/img/icons/btn-next.svg'>"],
                 responsive:{
                     0:{
                         items:1,

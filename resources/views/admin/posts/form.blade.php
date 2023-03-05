@@ -215,8 +215,8 @@
                     </div>
                     @enderror
                     @if(isset($model->photo))
-                        <div class="box-body mt-3">
-                            <img class="img-panel img-thumbnail w-25" src="{{ asset("storage/$model->photo") }}"
+                        <div class="box-body mt-3 col-lg-3 col-md-6 col-sm-12">
+                            <img class="img-panel img-thumbnail w-100" src="{{ asset("storage/$model->photo") }}"
                                  alt="{{ $model->title }}">
                         </div>
                     @endif

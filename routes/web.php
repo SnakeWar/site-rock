@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::match(['post', 'get'],  '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
-Route::match(['post', 'get'],   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
+Route::post(  '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
+Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
 
 Auth::routes();
 

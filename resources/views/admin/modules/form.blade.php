@@ -46,6 +46,17 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                            <div class="form-group {{ $errors->has('icon') ? 'has-error' : '' }}">
+                                <label for="inputTitle">URL do módulo</label>
+                                <input type="text" name="icon" class="form-control" id="inputTitle" placeholder="Ícone do módulo" value="{{ isset($module) ? $module->icon : old('icon') }}">
+                                @if ($errors->has('icon'))
+                                    <span class="help-block">
+                                <strong>{{ $errors->first('icon') }}</strong>
+                            </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">

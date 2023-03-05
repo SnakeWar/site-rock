@@ -54,7 +54,7 @@
 {{--Acessibilidade--}}
 <body id="header-top">
 <div class="whatsapp">
-    <a href="whatsapp-button" href=""><i class="fa fa-4x fa-whatsapp fa-"></i></a>
+    <a target="_blank" href="https://wa.me/5584988938188?text=Ol%C3%A1%2C+estava+olhando+seu+site%21"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
 </div>
 {{--<a href="#" id="open-acessibilidade"><img src="{{asset('assets/img/icons/acessibilidade.svg')}}"></a>--}}
 
