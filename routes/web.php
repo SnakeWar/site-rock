@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post(  '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
+Route::match(['get', 'post'],   '/buscar/{category?}/{tag?}', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
+Route::get(   '/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
 
 Auth::routes();
 

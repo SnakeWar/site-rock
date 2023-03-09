@@ -48,8 +48,9 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group {{ $errors->has('icon') ? 'has-error' : '' }}">
-                                <label for="inputTitle">URL do módulo</label>
+                                <label for="inputTitle">Ícone</label>
                                 <input type="text" name="icon" class="form-control" id="inputTitle" placeholder="Ícone do módulo" value="{{ isset($module) ? $module->icon : old('icon') }}">
+                                <a href="https://fontawesome.com/v5/search" target="_blank">Link para procurar ícones</a>
                                 @if ($errors->has('icon'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('icon') }}</strong>

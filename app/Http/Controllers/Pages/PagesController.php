@@ -57,108 +57,120 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(HomeRequest $request)
+    public function index(HomeRequest $request, String $category = null, String $tag = null, String $search = null)
     {
-        $highlight = $this->post
-            ->with('categories')
-            ->with('tags')
-            ->with('photos')
+        $category = $category ?? $request->input('category');
+        $tag = $tag ?? $request->input('tag');
+        $search = $search ?? $request->input('search');
+        $posts = $this->post
+            ->with(['categories', 'tags', 'photos'])
             ->whereStatus(1)
             ->whereDate('published_at', '<=', date('Y-m-d'));
 
         $categories = $this->category->all();
         $tags = $this->tag->all();
 
-        if ($request->search) {
-            $highlight->where('title', 'like', '%' . $request->input('search') . '%');
+        if ($search) {
+            $posts->where('title', 'like', '%' . $search . '%');
         }
-        if ($request->category) {
-            $category = $request->input('category');
-            $highlight->whereHas('categories', function($q) use($category) {
+        if ($category) {
+            $posts->whereHas('categories', function($q) use($category) {
                 $q->where('categories.id', $category);
             });
         }
-        if ($request->tag) {
-            $tag = $request->input('tag');
-            $highlight->whereHas('tags', function($q) use($tag) {
+        if ($tag) {
+            $posts->whereHas('tags', function($q) use($tag) {
                 $q->where('tags.id', $tag);
             });
         }
 //dd($highlight->get()[10]->photos[0]->photo);
         return view('pages.index', [
-            'highlight' => $highlight->orderBy('id', 'desc')->paginate(3)->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
+            'posts' => $posts->orderBy('id', 'desc')
+                ->paginate(6)
+                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
             'categories' => $categories,
             'tags' => $tags,
             'pagina' => 'Home',
         ]);
     }
 
-    public function page($slug)
-    {
+//    public function page($slug)
+//    {
+//
+//        $page = $this->page
+//            ->whereStatus(1)
+//            ->whereSlug($slug)
+//            ->first();
+//
+//        return view('pages.page_detail', [
+//            'page' => $page,
+//
+//            'pagina' => $page->title,
+//            'secao' => 'Institucional',
+//        ]);
+//    }
 
-        $page = $this->page
-            ->whereStatus(1)
-            ->whereSlug($slug)
-            ->first();
+//    public function posts()
+//    {
+//        $posts = $this->post->whereStatus(1)
+//            ->orderBy('id', 'desc')
+//            ->paginate(16);
+//
+//        return view('pages.posts', [
+//            'posts' => $posts,
+//            'secao' => 'Comunicação',
+//            'pagina' => 'Notícias',
+//
+//        ]);
+//    }
 
-        return view('pages.page_detail', [
-            'page' => $page,
-
-            'pagina' => $page->title,
-            'secao' => 'Institucional',
-        ]);
-    }
-
-    public function posts()
-    {
-        $posts = $this->post->whereStatus(1)
-            ->orderBy('id', 'desc')
-            ->paginate(16);
-
-        return view('pages.posts', [
-            'posts' => $posts,
-            'secao' => 'Comunicação',
-            'pagina' => 'Notícias',
-
-        ]);
-    }
-
-    public function news($subsection_name, $subsection_id)
-    {
-        $posts = $this->post
-            ->whereStatus(1)
-            ->where('subsection_id', $subsection_id)
-            ->paginate(16);
-        $page = $this->page
-            //->whereStatus(1)
-            ->where('title', 'like', '%' . $subsection_name . '%')
-            ->where('title', 'like', '%diretoria%')
-            ->first();
-        if (!$page) {
-            $data['title'] = '404';
-            $data['name'] = 'Page not found';
-            return response()->view('errors.404', $data, 404);
-        }
-        //dd($title);
-        return view('pages.news', [
-            'posts' => $posts,
-            'diretoria' => $page->slug,
-            'subsection_name' => $subsection_name,
-
-        ]);
-    }
+//    public function news($subsection_name, $subsection_id)
+//    {
+//        $posts = $this->post
+//            ->whereStatus(1)
+//            ->where('subsection_id', $subsection_id)
+//            ->paginate(16);
+//        $page = $this->page
+//            //->whereStatus(1)
+//            ->where('title', 'like', '%' . $subsection_name . '%')
+//            ->where('title', 'like', '%diretoria%')
+//            ->first();
+//        if (!$page) {
+//            $data['title'] = '404';
+//            $data['name'] = 'Page not found';
+//            return response()->view('errors.404', $data, 404);
+//        }
+//        //dd($title);
+//        return view('pages.news', [
+//            'posts' => $posts,
+//            'diretoria' => $page->slug,
+//            'subsection_name' => $subsection_name,
+//
+//        ]);
+//    }
 
     public function post($slug)
     {
 
-        $post = $this->post->whereSlug($slug)->first();
-        return view('pages.post_detail', [
+        $post = $this->post->with(['photos', 'categories', 'tags'])->whereSlug($slug)->first();
+        if (empty($post)) {
+            abort(404);
+        }
+        $categoryId = $post->categories->first()->id ?? 0;
+        $posts = $this->post->with('categories')->whereHas('categories', function($q) use($categoryId) {
+            $q->where('categories.id', $categoryId);
+        })->get();
+        $categories = $this->category->all();
+        $tags = $this->tag->all();
+        return view('pages.post', [
             'post' => $post,
-            'secao' => 'Comunicação',
-            'pagina' => 'Notícias',
+            'pagina' => 'Oportunidade',
             'title' => env('APP_NAME', '') . ' - ' . $post->title,
             'img' => env('APP_URL') . '/storage/' . $post->photo,
-            'description' => $post->description
+            'description' => $post->description,
+            'categories' => $categories,
+            'tags' => $tags,
+            'posts' => $posts
         ]);
     }
 

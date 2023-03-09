@@ -19,9 +19,8 @@
             <div class="container">
                 <div class="row">
                     <form action="{{route('buscar')}}" method="POST">
-                        @method('POST')
                         @csrf
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-3">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3 mb-3">
                             <div class="col">
                                 <div class="form-group">
                                     <input type="text" name="search" class="form-control" placeholder="Escreva o que procura aqui...">
@@ -53,10 +52,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    @foreach($highlight ?? [] as $item)
+                <div class="row row-cols-lg-3 row-cols-sm-1 row-cols-md-2 g-3">
+                    @foreach($posts ?? [] as $item)
                         <div class="col">
                             <div class="card shadow-sm">
+                                <a class="stretched-link" href="{{route('post', ['slug' => $item->slug])}}"></a>
                                 <div class="owl-carousel">
                                     <div>
                                         <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">
@@ -98,10 +98,15 @@
                             </div>
                         </div>
                     @endforeach
+                    @if($posts->isEmpty())
+                        <div>
+                            <h2>Nenhum resultado encontrado!</h2>
+                        </div>
+                    @endif
                 </div>
                 <div style="margin-top: 15px;" class="row align-content-center paginacao">
                     <div class="col-2">
-                        {{$highlight->appends(Request::get('search', 'category', 'tag'))->links('vendor.pagination.bootstrap-4')}}
+                        {{$posts->appends(Request::get('search', 'category', 'tag'))->links('vendor.pagination.bootstrap-4')}}
                     </div>
                 </div>
             </div>
