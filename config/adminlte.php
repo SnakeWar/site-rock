@@ -376,7 +376,7 @@ return [
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-users',
             'can'  => 'read_users',
         ],
         [

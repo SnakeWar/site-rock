@@ -34,59 +34,7 @@
                         </section>
                     </article>
                 </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Procurar</div>
-                        <div class="card-body">
-                            <form action="{{route('buscar')}}" method="POST">
-                                @csrf
-                                <div class="input-group">
-                                    <input name="search" class="form-control" type="text" placeholder="Escreva o que procura aqui..." aria-label="Escreva o que procura aqui..." aria-describedby="button-search" />
-                                    <button class="btn text-bg-dark" id="button-search" type="button">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categorias / Tags</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach($categories as $item)
-                                            <li><a class="link-dark text-decoration-none" href="{{route('buscar', ['category' => $item->id])}}">{{$item->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach($tags as $item)
-                                            <li><a class="link-dark text-decoration-none" href="{{route('buscar', ['tag' => $item->id])}}">{{$item->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Relacionados</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach($posts as $item)
-                                            <li class=""><a class="link-dark text-decoration-none" href="{{route('post', ['slug' => $item->slug])}}">{{$item->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('pages.layouts.side-page.side-page')
             </div>
         </div>
     </main>

@@ -66,7 +66,6 @@ class PagesController extends Controller
             ->with(['categories', 'tags', 'photos'])
             ->whereStatus(1)
             ->whereDate('published_at', '<=', date('Y-m-d'));
-
         $categories = $this->category->all();
         $tags = $this->tag->all();
 
@@ -83,7 +82,6 @@ class PagesController extends Controller
                 $q->where('tags.id', $tag);
             });
         }
-//dd($highlight->get()[10]->photos[0]->photo);
         return view('pages.index', [
             'posts' => $posts->orderBy('id', 'desc')
                 ->paginate(6)
@@ -93,61 +91,6 @@ class PagesController extends Controller
             'pagina' => 'Home',
         ]);
     }
-
-//    public function page($slug)
-//    {
-//
-//        $page = $this->page
-//            ->whereStatus(1)
-//            ->whereSlug($slug)
-//            ->first();
-//
-//        return view('pages.page_detail', [
-//            'page' => $page,
-//
-//            'pagina' => $page->title,
-//            'secao' => 'Institucional',
-//        ]);
-//    }
-
-//    public function posts()
-//    {
-//        $posts = $this->post->whereStatus(1)
-//            ->orderBy('id', 'desc')
-//            ->paginate(16);
-//
-//        return view('pages.posts', [
-//            'posts' => $posts,
-//            'secao' => 'Comunicação',
-//            'pagina' => 'Notícias',
-//
-//        ]);
-//    }
-
-//    public function news($subsection_name, $subsection_id)
-//    {
-//        $posts = $this->post
-//            ->whereStatus(1)
-//            ->where('subsection_id', $subsection_id)
-//            ->paginate(16);
-//        $page = $this->page
-//            //->whereStatus(1)
-//            ->where('title', 'like', '%' . $subsection_name . '%')
-//            ->where('title', 'like', '%diretoria%')
-//            ->first();
-//        if (!$page) {
-//            $data['title'] = '404';
-//            $data['name'] = 'Page not found';
-//            return response()->view('errors.404', $data, 404);
-//        }
-//        //dd($title);
-//        return view('pages.news', [
-//            'posts' => $posts,
-//            'diretoria' => $page->slug,
-//            'subsection_name' => $subsection_name,
-//
-//        ]);
-//    }
 
     public function post($slug)
     {
@@ -308,6 +251,23 @@ class PagesController extends Controller
         }
     }
 
+    public function enviar_form(ContactRequest $request)
+    {
+        $data = $request->all();
+
+        dd($data);
+
+        $contact = Contact::create($data);
+
+        if ($contact) {
+            flash(' Mensagem enviada com sucesso!')->success();
+            return redirect()->back();
+        } else {
+            flash(' Erro ao enviar a mensagem!')->warning();
+            return redirect()->back();
+        }
+    }
+
     public function enviar_busca(Request $request)
     {
         $busca = $request->all();
@@ -324,19 +284,6 @@ class PagesController extends Controller
             'pagina' => 'Busca',
             'secao' => '',
             'buscaPor' => $busca['q']
-        ]);
-    }
-
-    public function subscriptions(Request $request)
-    {
-        $lawyers = $this->lawyer->whereStatus(1);
-        if ($request->busca) {
-            $lawyers->where('name', 'like', '%'.$request->busca.'%');
-        }
-        return view('pages.subscriptions', [
-            'lawyers' => $lawyers->paginate(15)->appends(['busca' => $request->busca]),
-            'secao' => 'Inscição',
-            'pagina' => 'Advogados',
         ]);
     }
 }

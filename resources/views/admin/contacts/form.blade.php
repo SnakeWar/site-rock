@@ -23,20 +23,20 @@
                     @method('PUT')
                 @endif
                                <div class="form-group">
-                    <label for="">Título</label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                           value="{{ isset($model) ? $model->name : old('title') }}" disabled>
-                    @error('title')
+                    <label for="">Nome</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                           value="{{ isset($model) ? $model->name : old('name') }}" disabled>
+                    @error('name')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">Título</label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                           value="{{ isset($model) ? $model->email : old('title') }}" disabled>
-                    @error('title')
+                    <label for="">Telefone</label>
+                    <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror"
+                           value="{{ isset($model) ? $model->telephone : old('telephone') }}" disabled>
+                    @error('telephone')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
@@ -44,10 +44,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Mensagem</label>
-                    <textarea type="text" id="editor1" name="body" cols="30" rows="10"
-                              class="form-control @error('body') is-invalid @enderror" disabled>{{ isset($model) ? $model->message : old('body') }}</textarea>
-                    @error('body')
+                    <label for="">E-mail</label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                           value="{{ isset($model) ? $model->email : old('email') }}" disabled>
+                    @error('email')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>

@@ -173,3 +173,16 @@
 .owl-nav button:hover {
     transform: scale(1.50);
 }
+.form-control {
+    text-align: center;
+    border-bottom-color: #212529;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: none;
+}
+.side-page .card, .side-page .card-header, .side-page .card-body {
+    border: none;
+    background: none;
+}

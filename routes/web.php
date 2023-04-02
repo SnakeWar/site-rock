@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::match(['get', 'post'],   '/buscar/{category?}/{tag?}', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
 Route::get(   '/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
+Route::post('/enviar-form', [App\Http\Controllers\Pages\PagesController::class, 'enviar_form'])->name('enviar_form');
 
 Auth::routes();
 

@@ -27,18 +27,21 @@ class ModulesTableSeeder extends Seeder
             [
                 'title' => 'Grupos',
                 'url' => 'roles',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'title' => 'Contato',
                 'url' => 'contacts',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'title' => 'Oportunidades',
                 'url' => 'posts',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -52,18 +55,21 @@ class ModulesTableSeeder extends Seeder
             [
                 'title' => 'Categorias',
                 'url' => 'categories',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'title' => 'Tags',
                 'url' => 'tags',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'title' => 'Logs',
                 'url' => 'url',
+                'icon' => '',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

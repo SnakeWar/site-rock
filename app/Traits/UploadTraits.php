@@ -19,6 +19,7 @@ trait UploadTraits
         $caminho = $image->store($dir, 'public');
         // Pega a imagem já salva e redimensiona proporcionalmente
         Image::make(public_path("/storage/") . $caminho)
+            ->insert(public_path("/watermark/watermark.png"), 'center')
             ->save(public_path("/storage/") . $caminho, 60)
             // Redimensionada a imagem
             ->resize(300, 300, function($constraint){
@@ -37,6 +38,7 @@ trait UploadTraits
             array_push($uploadImages, [$imageColumn => $image->store($dir, 'public')]);
             // Pega a imagem já salva e redimensiona proporcionalmente
             Image::make(public_path("/storage/") . $uploadImages[$key]['photo'])
+                ->insert(public_path("/watermark/watermark.png"), 'center')
                 ->save(public_path("/storage/") . $uploadImages[$key]['photo'], 60)
                 // Redimensionada a imagem
                 ->resize(300, 300, function($constraint){

@@ -27,26 +27,20 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text text-bg-dark">Categoria</span>
-                                    <select name="category" class="form-control">
-                                        <option value="">--- Selecione ---</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <select name="category" class="form-control">
+                                    <option value="">Categoria</option>
+                                    @foreach($categories ?? [] as $category)
+                                        <option value="{{$category->id}}">{{$category->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text text-bg-dark">Tipo</span>
-                                    <select name="tag" class="form-control">
-                                        <option value="">--- Selecione ---</option>
-                                        @foreach($tags as $tag)
-                                            <option value="{{$tag->id}}">{{$tag->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <select name="tag" class="form-control">
+                                    <option value="">Tipo</option>
+                                    @foreach($tags ?? [] as $tag)
+                                        <option value="{{$tag->id}}">{{$tag->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col"><button type="submit" class="btn text-bg-dark" style="width: 100%">Procurar</button></div>
                         </div>
@@ -142,6 +136,11 @@
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#telephone').mask('(99) 99999-9999');
         });
     </script>
 @endsection
