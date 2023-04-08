@@ -24,7 +24,7 @@
         .box-cookies .btn-cookies {
             text-align: center;
             padding: 25px;
-            color: #fff;
+            color: #ffc800;
             font-size: 18px;
             margin: 0;
         }
@@ -54,7 +54,7 @@
 {{--Acessibilidade--}}
 <body id="header-top">
 <div class="whatsapp">
-    <a target="_blank" href="https://wa.me/5584988938188?text=Ol%C3%A1%2C+estava+olhando+seu+site%21"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
+    <a target="_blank" href="{{env('APP_WHATSAPP')}}"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
 </div>
 {{--<a href="#" id="open-acessibilidade"><img src="{{asset('assets/img/icons/acessibilidade.svg')}}"></a>--}}
 
@@ -152,28 +152,30 @@
 @include('pages.layouts.block.footer')
 @include('pages.layouts.block.script')
 
-{{--<div class="box-cookies hide">--}}
-{{--    <p class="msg-cookies">Utilizamos cookies para assegurar que lhe fornecemos a melhor experiência na nossa página web.</p>--}}
-{{--    <button class="btn-cookies">Aceitar!</button>--}}
-{{--</div>--}}
+<div class="box-cookies hide">
+    <p class="msg-cookies">Utilizamos cookies para assegurar que lhe fornecemos a melhor experiência na nossa página web.</p>
+    <a href="{{route('page', ['page' => 'termos-de-uso'])}}">Termos de Uso</a>
+    <a href="{{route('page', ['page' => 'politicas-de-privacidade'])}}">Políticas de Privacidade</a>
+    <button class="btn-cookies">Aceitar!</button>
+</div>
 
-{{--<script>--}}
-{{--    // Block cookies--}}
-{{--    (() => {--}}
-{{--        if (!localStorage.pureJavaScriptCookies) {--}}
-{{--            document.querySelector(".box-cookies").classList.remove('hide');--}}
-{{--        }--}}
+<script>
+    // Block cookies
+    (() => {
+        if (!localStorage.pureJavaScriptCookies) {
+            document.querySelector(".box-cookies").classList.remove('hide');
+        }
 
-{{--        const acceptCookies = () => {--}}
-{{--            document.querySelector(".box-cookies").classList.add('hide');--}}
-{{--            localStorage.setItem("pureJavaScriptCookies", "accept");--}}
-{{--        };--}}
+        const acceptCookies = () => {
+            document.querySelector(".box-cookies").classList.add('hide');
+            localStorage.setItem("pureJavaScriptCookies", "accept");
+        };
 
-{{--        const btnCookies = document.querySelector(".btn-cookies");--}}
+        const btnCookies = document.querySelector(".btn-cookies");
 
-{{--        btnCookies.addEventListener('click', acceptCookies);--}}
-{{--    })();--}}
-{{--</script>--}}
+        btnCookies.addEventListener('click', acceptCookies);
+    })();
+</script>
 
 </body>
 </html>

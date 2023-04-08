@@ -18,6 +18,7 @@ Route::get(   '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'in
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
 Route::get(   '/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
 Route::post('/enviar-form', [App\Http\Controllers\Pages\PagesController::class, 'enviar_form'])->name('enviar_form');
+Route::get('/page/{page}', [App\Http\Controllers\Pages\PagesController::class, 'page'])->name('page');
 
 Auth::routes();
 
@@ -41,6 +42,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class)->middleware('can:read_categories');
 
     Route::resource('tags', App\Http\Controllers\Admin\TagController::class)->middleware('can:read_tags');
+
+    Route::resource('configurations', App\Http\Controllers\Admin\ConfigurationController::class)->middleware('can:read_configurations');
 
     Route::resource('modules', App\Http\Controllers\Admin\ModuleController::class)->middleware('can:read_modules');
 

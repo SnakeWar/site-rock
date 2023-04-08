@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\HomeRequest;
 use App\Http\Requests\WorkwithusRequest;
+use App\Models\Configuration;
 use App\Models\Lawyer;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Gallery;
@@ -44,12 +44,14 @@ class PagesController extends Controller
 
     public function __construct(Category   $category,
                                 Post       $post,
-                                Tag $tag
+                                Tag $tag,
+                                Configuration $configuration
     )
     {
         $this->category = $category;
         $this->post = $post;
         $this->tag = $tag;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -112,7 +114,7 @@ class PagesController extends Controller
         $posts = $this->post->with('categories')->whereNot('id', $post->id)->whereHas('categories', function($q) use($categoryId) {
             $q->where('categories.id', $categoryId);
         })->limit(10)->get();
-        $categories = $this->category->whereStatus()->all();
+        $categories = $this->category->all();
         $tags = $this->tag->all();
         return view('pages.post', [
             'post' => $post,
@@ -126,54 +128,13 @@ class PagesController extends Controller
         ]);
     }
 
-//    public function fale_conosco()
-//    {
-//
-//        return view('pages.fale_conosco', [
-//            'pagina' => '',
-//
-//        ]);
-//    }
-
-//    public function trabalhe_conosco()
-//    {
-//        return view('pages.trabalhe_conosco', [
-//            'pagina' => ''
-//        ]);
-//    }
-
-//    public function enviar_trabalhe_conosco(WorkwithusRequest $request)
-//    {
-//        $data = $request->all();
-//        //dd($data);
-//        if ($request->hasFile('attach')) {
-//            $data['attach'] = $this->imageUpload($data['attach'], 'trabalhe_conosco');
-//        }
-//        $contact = Workwithus::create($data);
-//
-//        if ($contact) {
-//            flash(' Mensagem enviada com sucesso!')->success();
-//            return redirect()->back();
-//        } else {
-//            flash(' Erro ao enviar a mensagem!')->warning();
-//            return redirect()->back();
-//        }
-//    }
-
-//    public function enviar_fale_conosco(ContactRequest $request)
-//    {
-//        $data = $request->all();
-//
-//        $contact = Contact::create($data);
-//
-//        if ($contact) {
-//            flash(' Mensagem enviada com sucesso!')->success();
-//            return redirect()->back();
-//        } else {
-//            flash(' Erro ao enviar a mensagem!')->warning();
-//            return redirect()->back();
-//        }
-//    }
+    public function page($page) {
+        $model = $this->configuration->whereCode($page)->first();
+        if (empty($model)) {
+            abort(404);
+        }
+        return view('pages.page', ['page' => $model]);
+    }
 
     public function enviar_form(ContactRequest $request)
     {

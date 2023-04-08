@@ -145,10 +145,10 @@
     margin-right: auto;
 }
 .logo {
-    width: 100px;
+    width: 150px;
 }
 .logo-footer {
-    width: 100px;
+    width: 150px;
 }
 .redes-sociais li a i {
     color: white !important;
@@ -232,4 +232,7 @@
 }
 .tamanho-300 {
     height: 300px;
+}
+i:hover {
+    color: #ffc800;
 }

@@ -53,7 +53,7 @@
                         <h2 class="section-heading text-uppercase">Oportunidades</h2>
                         {{--                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>--}}
                     </div>
-                    <div class="row row-cols-lg-3 row-cols-sm-1 row-cols-md-2 g-3">
+                    <div class="row row-cols-lg-3 row-cols-sm-1 row-cols-md-2 g-3 justify-content-center">
                         @foreach($posts ?? [] as $item)
                             <div class="col">
                                 <div class="card shadow-sm">
@@ -72,10 +72,6 @@
                                         <p class="card-text bold">{{$item->title}}</p>
                                         <p class="card-text">{{$item->description}}</p>
                                         <div class="d-flex justify-content-between align-items-center">
-{{--                                                                                    <div class="btn-group">--}}
-{{--                                                                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>--}}
-{{--                                                                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>--}}
-{{--                                                                                    </div>--}}
                                             @if($item->dormitorios > 0)
                                                 <small class="text-muted">{{$item->dormitorios}} <i class="fas fa fa-bed"></i></small>
                                             @endif
@@ -145,17 +141,18 @@
                 <hr class="featurette-divider">
                 <div class="row featurette justify-content-center">
                     <div class="col-md-6">
-                        <h2 class="featurette-heading fw-normal lh-1">Vinicíus Araújo</h2>
-                        <p class="lead">Corretor de Imóveis de alto padrão em Natal e região.</p>
-                        <div class="row mb-3">
-                            <div class="col-4">
-                                <a href="{{env('APP_INSTAGRAM', '')}}"><i class="fa fa-instagram fa-3x"></i></a>
+                        <h2 class="featurette-heading fw-normal lh-1">Vinícius Araújo</h2>
+                        <p class="lead">Vinícius Araújo é um especialista em casas de alto padrão em condomínio fechado na região de Natal e Parnamirim/RN.</p>
+                        <p>Entre em contato nas minhas redes sociais:</p>
+                        <div class="row mb-3 justify-content-start">
+                            <div class="col-lg-2 col-md-2 col-sm-4">
+                                <a target="_blank" href="{{env('APP_INSTAGRAM', '')}}"><i class="fa fa-instagram fa-3x text-dark"></i></a>
                             </div>
-                            <div class="col-4">
-                                <a href="{{env('APP_EMAIL', '')}}"><i class="fa fa-envelope fa-3x"></i></a>
+                            <div class="col-lg-2 col-md-2 col-sm-4">
+                                <a target="_blank" href="{{env('APP_EMAIL', '')}}"><i class="fa fa-envelope fa-3x text-dark"></i></a>
                             </div>
-                            <div class="col-4">
-                                <a href="{{env('APP_WHATSAPP', '')}}"><i class="fa fa-whatsapp fa-3x"></i></a>
+                            <div class="col-lg-2 col-md-2 col-sm-4">
+                                <a target="_blank" href="{{env('APP_WHATSAPP', '')}}"><i class="fa fa-whatsapp fa-3x text-dark"></i></a>
                             </div>
                         </div>
                     </div>

@@ -12,13 +12,13 @@ window.addEventListener('DOMContentLoaded', event => {
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
-        const logo = document.body.querySelector('#logo');
+        const url = window.location.href;
         if (!navbarCollapsible) {
             return;
         }
         if (window.scrollY === 0) {
             navbarCollapsible.classList.remove('navbar-shrink');
-            if (window.location.href.includes('/oportunidade/')) {
+            if (url.includes('/oportunidade/') || url.includes('/page/')) {
                 navbarCollapsible.classList.add('navbar-shrink')
                 navbarCollapsible.classList.remove('fixed-top')
 

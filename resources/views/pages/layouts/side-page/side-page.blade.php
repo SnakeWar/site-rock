@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-0">
-                        @foreach($posts as $item)
+                        @foreach($posts ?? [] as $item)
                             <li class=""><a class="link-dark text-decoration-none" href="{{route('post', ['slug' => $item->slug])}}">{{$item->title}}</a></li>
                         @endforeach
                     </ul>

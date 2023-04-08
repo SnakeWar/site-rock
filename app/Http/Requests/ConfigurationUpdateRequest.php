@@ -4,17 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostUpdateRequest extends FormRequest
+class ConfigurationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-
     public function authorize()
     {
-        return $this->user()->can('update_posts');
+        return $this->user()->can('update_configurations');
     }
 
     /**
@@ -25,20 +24,16 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'dormitorios' => 'required|numeric',
-            'banheiros' => 'required|numeric',
-            'vagas_garagem' => 'required|numeric',
-            'valor' => 'required',
+            'code'         => 'required|',
+            'value'         => 'required',
         ];
     }
     public function messages()
     {
         return [
             'required'  => 'Este campo é obrigatório.',
-            'max'  => 'Máximo de 255 caracteres antigido!',
 //            'min'         => 'Campo deve ter no mínimo :min caracteres.',
+            'unique' => 'Título já cadastrado anteriormente.'
         ];
     }
 }

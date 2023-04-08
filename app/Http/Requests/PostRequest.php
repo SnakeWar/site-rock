@@ -30,8 +30,6 @@ class PostRequest extends FormRequest
             'dormitorios'         => 'required|numeric',
             'banheiros'         => 'required|numeric',
             'vagas_garagem'         => 'numeric',
-            'metro_quadrado_total' => 'numeric',
-            'metro_quadrado_privado' => 'numeric',
             'valor'         => 'required',
             'photo'         => 'required',
         ];
@@ -41,7 +39,7 @@ class PostRequest extends FormRequest
         return [
             'required'  => 'Este campo é obrigatório.',
             'max'  => 'Máximo de 255 caracteres antigido!',
-//            'min'         => 'Campo deve ter no mínimo :min caracteres.',
+//          'min'         => 'Campo deve ter no mínimo :min caracteres.',
             'unique' => 'Título já cadastrado anteriormente.'
         ];
     }
