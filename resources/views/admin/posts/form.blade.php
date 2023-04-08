@@ -65,7 +65,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group date">
+                            <label for="">Data de Publicação</label>
+                            <input type="text" name="published_at"
+                                   class="datetimepicker form-control @error('published_at') is-invalid @enderror"
+                                   value="{{ isset($model) ? Helper::convertdata_tosite($model->published_at) : old('published_at') }}">
+                            @error('published_at')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="dormitorios">Qtd. dormitórios</label>
                             <input type="number" name="dormitorios"
@@ -78,7 +91,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="banheiros">Qtd. banheiros</label>
                             <input type="number" name="banheiros"
@@ -91,7 +104,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="vagas_garagem">Qtd. vagas de garagem</label>
                             <input type="number"
@@ -158,20 +171,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="form-group date">
-                            <label for="">Data de Publicação</label>
-                            <input type="text" name="published_at"
-                                   class="datetimepicker form-control @error('published_at') is-invalid @enderror"
-                                   value="{{ isset($model) ? Helper::convertdata_tosite($model->published_at) : old('published_at') }}">
-                            @error('published_at')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="categories">Categorias</label>
                             <select name="categories[]" class="form-control multiple-select" multiple>
@@ -183,7 +183,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="tags">Tags</label>
                             <select name="tags[]" class="form-control multiple-select" multiple>

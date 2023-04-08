@@ -182,7 +182,54 @@
     border-right: none;
     background: none;
 }
+.form-select {
+    text-align: center;
+    border-bottom-color: #212529;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: none;
+}
 .side-page .card, .side-page .card-header, .side-page .card-body {
     border: none;
     background: none;
+}
+.masthead__bg_search_form {
+    background-color: #0a0a0a;
+    border-radius: 15px;
+    padding: 15px 15px;
+}
+.masthead__input_text {
+    color: whitesmoke;
+}
+.masthead__input_text::placeholder {
+    color: whitesmoke;
+}
+.masthead__input_select {
+    color: whitesmoke;
+}
+.masthead__input_option {
+    background-color: #0a0a0a;
+    color: whitesmoke;
+}
+.masthead__input_option:active, .masthead__input_option:checked, .masthead__input_option:current {
+    background-color: #0a0a0a;
+    color: whitesmoke;
+}
+.form-control__white_border {
+    border-bottom-color: whitesmoke;
+}
+.form-select__white_border {
+    border-bottom-color: whitesmoke;
+}
+.bg-black {
+    background-color: rgb(33,37,41) !important;
+}
+.tamanho-500 {
+    height: 350px;
+    width: 500px;
+}
+.tamanho-300 {
+    height: 300px;
 }

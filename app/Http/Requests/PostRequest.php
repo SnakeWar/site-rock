@@ -30,6 +30,8 @@ class PostRequest extends FormRequest
             'dormitorios'         => 'required|numeric',
             'banheiros'         => 'required|numeric',
             'vagas_garagem'         => 'numeric',
+            'metro_quadrado_total' => 'numeric',
+            'metro_quadrado_privado' => 'numeric',
             'valor'         => 'required',
             'photo'         => 'required',
         ];

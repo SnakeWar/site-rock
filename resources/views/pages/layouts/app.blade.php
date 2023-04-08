@@ -151,7 +151,6 @@
 @yield('content')
 @include('pages.layouts.block.footer')
 @include('pages.layouts.block.script')
-@yield('js')
 
 {{--<div class="box-cookies hide">--}}
 {{--    <p class="msg-cookies">Utilizamos cookies para assegurar que lhe fornecemos a melhor experiência na nossa página web.</p>--}}

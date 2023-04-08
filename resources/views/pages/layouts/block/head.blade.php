@@ -33,6 +33,7 @@
 <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/index.css') }}">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/owl-carousel/assets/owl.carousel.min.css') }}">

@@ -2,8 +2,6 @@
 <div class="col-lg-4 side-page">
     <!-- Search widget-->
     <div class="card mb-4">
-        <div class="card-header">Procurar</div>
-        <hr class="mt-1">
         <div class="card-body">
             <form action="{{route('buscar')}}" method="POST">
                 @csrf
@@ -11,7 +9,7 @@
                     <input name="search" class="form-control" type="text" placeholder="Escreva o que procura aqui..." aria-label="Escreva o que procura aqui..." aria-describedby="button-search" />
                 </div>
                 <div class="d-grid gap-2 mt-1">
-                    <button class="btn text-bg-dark btn-block" id="button-search" type="button">Enviar</button>
+                    <button class="btn text-bg-dark btn-block" id="button-search" type="button">Procurar</button>
                 </div>
             </form>
         </div>

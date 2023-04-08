@@ -30,8 +30,8 @@ class PostUpdateRequest extends FormRequest
             'dormitorios' => 'required|numeric',
             'banheiros' => 'required|numeric',
             'vagas_garagem' => 'required|numeric',
-            'metro_quadrado_total' => 'required|numeric',
-            'metro_quadrado_privado' => 'required|numeric',
+            'metro_quadrado_total' => 'numeric',
+            'metro_quadrado_privado' => 'numeric',
             'valor' => 'required',
         ];
     }

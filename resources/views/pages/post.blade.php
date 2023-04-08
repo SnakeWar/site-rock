@@ -12,20 +12,21 @@
                             <h1 class="fw-bolder mb-1">{{$post->title}}</h1>
                             <hr>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">{{\Carbon\Carbon::create($post->created_at)->diffForHumans()}}</div>
+{{--                            <div class="text-muted fst-italic mb-2">{{\Carbon\Carbon::create($post->created_at)->diffForHumans()}}</div>--}}
                             <!-- Post categories-->
-                            @foreach($post->categories as $category)
+                            @foreach($post->categories ?? [] as $category)
                                 <a class="badge bg-secondary text-decoration-none link-light" href="{{route('buscar', ['category' => $category->id])}}">{{$category->title}}</a>
                             @endforeach
-                            @foreach($post->tags as $tag)
+                            <!-- Post tags-->
+                            @foreach($post->tags ?? [] as $tag)
                                 <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{$tag->title}}</a>
                             @endforeach
                         </header>
                         <div class="owl-carousel">
                             <!-- Preview image figure-->
-                            <figure class="mb-4"><img class="img-fluid rounded" src="{{asset("storage/".$post->photo)}}" alt="{{$post->title}}" /></figure>
-                            @foreach($post->photos as $photo)
-                                <figure class="mb-4"><img class="img-fluid rounded" src="{{asset("storage/".$photo->photo)}}" alt="{{$post->title}}" /></figure>
+                            <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$post->photo)}}" alt="{{$post->title}}" />
+                            @foreach($post->photos ?? [] as $photo)
+                                <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$photo->photo)}}" alt="{{$post->title}}" />
                             @endforeach
                         </div>
                         <!-- Post content-->
@@ -39,7 +40,7 @@
         </div>
     </main>
 @endsection
-@section('js')
+@section('scripts')
     <script>
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({
@@ -70,7 +71,7 @@
         });
     </script>
 @endsection
-@section('js')
+@section('scripts')
     <script>
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({

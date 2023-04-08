@@ -62,6 +62,16 @@ class PagesController extends Controller
         $category = $category ?? $request->input('category');
         $tag = $tag ?? $request->input('tag');
         $search = $search ?? $request->input('search');
+        // dd($category, $tag, $search, $request);
+
+        if ($category === "Categoria") {
+            $category = "";
+        }
+
+        if ($tag === "Tipo") {
+            $tag = "";
+        }
+
         $posts = $this->post
             ->with(['categories', 'tags', 'photos'])
             ->whereStatus(1)
@@ -72,12 +82,12 @@ class PagesController extends Controller
         if ($search) {
             $posts->where('title', 'like', '%' . $search . '%');
         }
-        if ($category) {
+        if ($category && $category != "Categoria") {
             $posts->whereHas('categories', function($q) use($category) {
                 $q->where('categories.id', $category);
             });
         }
-        if ($tag) {
+        if ($tag && $tag != "Tipo") {
             $posts->whereHas('tags', function($q) use($tag) {
                 $q->where('tags.id', $tag);
             });
@@ -94,16 +104,15 @@ class PagesController extends Controller
 
     public function post($slug)
     {
-
-        $post = $this->post->with(['photos', 'categories', 'tags'])->whereSlug($slug)->first();
+        $post = $this->post->with(['photos', 'categories', 'tags'])->whereStatus(1)->whereSlug($slug)->first();
         if (empty($post)) {
             abort(404);
         }
         $categoryId = $post->categories->first()->id ?? 0;
-        $posts = $this->post->with('categories')->whereHas('categories', function($q) use($categoryId) {
+        $posts = $this->post->with('categories')->whereNot('id', $post->id)->whereHas('categories', function($q) use($categoryId) {
             $q->where('categories.id', $categoryId);
-        })->get();
-        $categories = $this->category->all();
+        })->limit(10)->get();
+        $categories = $this->category->whereStatus()->all();
         $tags = $this->tag->all();
         return view('pages.post', [
             'post' => $post,
@@ -117,173 +126,86 @@ class PagesController extends Controller
         ]);
     }
 
-    public function galleries($busca = null)
-    {
-        if ($busca == null || $busca == '') {
-            $galleries = $this->gallery->with('photos')->whereStatus(1)
-                ->paginate(16);
-        } else {
-            $galleries = $this->gallery->with('photos')->whereStatus(1)
-                ->where('title', 'like', '%' . $busca . '%')
-                ->orWhere('body', 'like', '%' . $busca . '%')
-                ->paginate(16);
-        }
+//    public function fale_conosco()
+//    {
+//
+//        return view('pages.fale_conosco', [
+//            'pagina' => '',
+//
+//        ]);
+//    }
 
+//    public function trabalhe_conosco()
+//    {
+//        return view('pages.trabalhe_conosco', [
+//            'pagina' => ''
+//        ]);
+//    }
 
-        return view('pages.albuns', [
-            'galleries' => $galleries,
-            'secao' => 'Comunicação',
-            'pagina' => 'Álbuns',
+//    public function enviar_trabalhe_conosco(WorkwithusRequest $request)
+//    {
+//        $data = $request->all();
+//        //dd($data);
+//        if ($request->hasFile('attach')) {
+//            $data['attach'] = $this->imageUpload($data['attach'], 'trabalhe_conosco');
+//        }
+//        $contact = Workwithus::create($data);
+//
+//        if ($contact) {
+//            flash(' Mensagem enviada com sucesso!')->success();
+//            return redirect()->back();
+//        } else {
+//            flash(' Erro ao enviar a mensagem!')->warning();
+//            return redirect()->back();
+//        }
+//    }
 
-        ]);
-    }
-
-    public function gallery($slug)
-    {
-
-        $gallery = $this->gallery
-            ->whereSlug($slug)
-            ->whereStatus(1)
-            ->first();
-        return view('pages.album', [
-            'gallery' => $gallery,
-            'secao' => 'Comunicação',
-            'pagina' => 'Álbum',
-            'title' => env('APP_NAME', 'Título') . ' - ' . $gallery->title,
-            'img' => env('APP_URL') . '/storage/' . $gallery->photo,
-            'description' => $gallery->description
-        ]);
-    }
-
-    public function directors()
-    {
-
-        return view('pages.directors', [
-            'secao' => 'Institucional',
-            'pagina' => 'Diretores',
-
-        ]);
-    }
-
-    public function statistics()
-    {
-
-        return view('pages.estatisticas', [
-            'secao' => 'Exame de Ordem',
-            'pagina' => 'Estatísticas',
-
-        ]);
-    }
-
-    public function subsections()
-    {
-        $subsecoes = $this->subsections->whereStatus(1)
-            ->paginate(8);
-
-        return view('pages.subsecoes', [
-            'secao' => 'Institucional',
-            'pagina' => 'Subseções',
-            'subsecoes' => $subsecoes,
-
-        ]);
-    }
-
-    public function subsection($slug)
-    {
-        $subsection = $this->subsections->whereStatus(1)
-            ->whereSlug($slug)
-            ->first();
-
-        return view('pages.subsecao', [
-            'secao' => 'Institucional',
-            'pagina' => 'Subseções',
-            'subsection' => $subsection,
-
-        ]);
-    }
-
-    public function fale_conosco()
-    {
-
-        return view('pages.fale_conosco', [
-            'pagina' => '',
-
-        ]);
-    }
-
-    public function trabalhe_conosco()
-    {
-        return view('pages.trabalhe_conosco', [
-            'pagina' => ''
-        ]);
-    }
-
-    public function enviar_trabalhe_conosco(WorkwithusRequest $request)
-    {
-        $data = $request->all();
-        //dd($data);
-        if ($request->hasFile('attach')) {
-            $data['attach'] = $this->imageUpload($data['attach'], 'trabalhe_conosco');
-        }
-        $contact = Workwithus::create($data);
-
-        if ($contact) {
-            flash(' Mensagem enviada com sucesso!')->success();
-            return redirect()->back();
-        } else {
-            flash(' Erro ao enviar a mensagem!')->warning();
-            return redirect()->back();
-        }
-    }
-
-    public function enviar_fale_conosco(ContactRequest $request)
-    {
-        $data = $request->all();
-
-        $contact = Contact::create($data);
-
-        if ($contact) {
-            flash(' Mensagem enviada com sucesso!')->success();
-            return redirect()->back();
-        } else {
-            flash(' Erro ao enviar a mensagem!')->warning();
-            return redirect()->back();
-        }
-    }
+//    public function enviar_fale_conosco(ContactRequest $request)
+//    {
+//        $data = $request->all();
+//
+//        $contact = Contact::create($data);
+//
+//        if ($contact) {
+//            flash(' Mensagem enviada com sucesso!')->success();
+//            return redirect()->back();
+//        } else {
+//            flash(' Erro ao enviar a mensagem!')->warning();
+//            return redirect()->back();
+//        }
+//    }
 
     public function enviar_form(ContactRequest $request)
     {
         $data = $request->all();
 
-        dd($data);
-
         $contact = Contact::create($data);
 
         if ($contact) {
             flash(' Mensagem enviada com sucesso!')->success();
             return redirect()->back();
         } else {
-            flash(' Erro ao enviar a mensagem!')->warning();
+            flash(' Erro ao enviar a mensagem!')->error();
             return redirect()->back();
         }
     }
 
-    public function enviar_busca(Request $request)
-    {
-        $busca = $request->all();
-        if (!isset($busca['q'])) {
-            return redirect('/');
-        }
-        $posts = $this->post->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-        $pages = $this->page->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-        $galleries = $this->gallery->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-        return view('pages.busca', [
-            'posts' => $posts,
-            'pages' => $pages,
-            'galleries' => $galleries,
-            'pagina' => 'Busca',
-            'secao' => '',
-            'buscaPor' => $busca['q']
-        ]);
-    }
+//    public function enviar_busca(Request $request)
+//    {
+//        $busca = $request->all();
+//        if (!isset($busca['q'])) {
+//            return redirect('/');
+//        }
+//        $posts = $this->post->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
+//        $pages = $this->page->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
+//        $galleries = $this->gallery->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
+//        return view('pages.busca', [
+//            'posts' => $posts,
+//            'pages' => $pages,
+//            'galleries' => $galleries,
+//            'pagina' => 'Busca',
+//            'secao' => '',
+//            'buscaPor' => $busca['q']
+//        ]);
+//    }
 }

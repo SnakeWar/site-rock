@@ -14,7 +14,9 @@
         <div class="card-body">
             <form role="form" method="POST" action="{{ isset($role) ? route('admin.roles.update', $role->id) : route('admin.roles.store')}}" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @isset($role)
+                    @method('PUT')
+                @endisset
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-12">
