@@ -18,6 +18,10 @@ class CreatePostsTable extends Migration
             $table->date('published_at')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->unsignedBigInteger('city_neighborhoods_id')->nullable();
+            $table->foreign('city_neighborhoods_id')->references('id')->on('city_neighborhoods')->onDelete('cascade');
             $table->string('title')->unique();
             $table->longText('photo')->nullable();
             $table->string('slug');

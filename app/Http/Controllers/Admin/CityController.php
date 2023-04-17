@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\CityRequest;
+use App\Http\Requests\CityUpdateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\CityNeighborhoods;
+use App\Models\Neighborhood;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Traits\Functions;
@@ -15,24 +17,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class PostController extends Controller
+class CityController extends Controller
 {
     use UploadTraits, Functions;
 
     private $post;
 
-    public function __construct(Post $post, Category $category, Tag $tag, City $city, CityNeighborhoods $cityNeighborhoods)
+    public function __construct(City $model, Neighborhood $neighborhood)
     {
-        $this->model = $post;
-        $this->category = $category;
-        $this->tag = $tag;
-        $this->title = 'Oportunidades';
-        $this->subtitle = 'Oportunidade';
+        $this->model = $model;
+        $this->neighborhood = $neighborhood;
+        $this->title = 'Cidades';
+        $this->subtitle = 'Cidade';
         $this->middleware('auth');
-        $this->admin = 'admin.posts';
-        $this->view = 'posts';
-        $this->city = $city;
-        $this->cityNeighborhoods = $cityNeighborhoods;
+        $this->admin = 'admin.cities';
+        $this->view = 'cities';
     }
 
     /**
@@ -43,7 +42,7 @@ class PostController extends Controller
     public function index()
     {
         return view($this->admin . '.index', [
-            'model' => $this->model->with('user')->orderBy('id', 'desc')->paginate(10),
+            'model' => $this->model->with(['user'])->orderBy('id', 'desc')->paginate(10),
             'title' => $this->title,
             'subtitle' => $this->subtitle,
             'admin' => $this->admin,
@@ -58,13 +57,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->all();
-        $tags = $this->tag->all();
-        $cities = $this->city->all();
         return view($this->admin . '.form', [
-            'categories' => $categories,
-            'tags' => $tags,
-            'cities' => $cities,
             'title' => $this->title,
             'subtitle'=> $this->subtitle,
             'admin' => $this->admin,
@@ -78,26 +71,18 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PostRequest $request)
+    public function store(CityRequest $request)
     {
-        $data = $request->except(['categories', 'tags']);
-        $data['slug'] = Str::slug($data['title']);
-        $data['published_at'] = \Helper::convertdata_todb($data['published_at']);
-        $data['valor'] = \Helper::convertCurrencyBRToUS($data['valor']);
-        $categories = $request->get('categories', null);
-        $tags = $request->get('tags', null);
+        $data = $request->all();
         $data['user_id'] = Auth::user()->id;
+        $data['slug'] = Str::slug($data['title']);
         if($request->hasFile('photo')) {
             // Pega a imagem e salva no storage
             $data['photo'] = $this->imageUpload($request->file('photo'), $this->view);
         }
-        $post = $this->model->create($data);
-
-        $post->categories()->sync($categories);
-        $post->tags()->sync($tags);
+        $this->model->create($data);
         flash($this->subtitle . ' Criada com Sucesso!')->success();
         return redirect()->route($this->admin . '.index');
-
     }
 
     /**
@@ -119,19 +104,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $categories = $this->category->all();
-        $tags = $this->tag->all();
-        $cities = $this->city->all();
-        $cityNeighborhoods = $this->cityNeighborhoods->all();
-        //dd($categories[0]->title);
+
         $model = $this->model->findOrFail($id);
-        //dd($post);
         return view($this->admin . '.form', [
             'model' => $model,
-            'categories' => $categories,
-            'tags' => $tags,
-            'cityNeighborhoods' => $cityNeighborhoods,
-            'cities' => $cities,
             'title' => $this->title,
             'subtitle'=> $this->subtitle,
             'admin' => $this->admin,
@@ -146,13 +122,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PostUpdateRequest $request, $id)
+    public function update(CityUpdateRequest $request, $id)
     {
-        $data = $request->except(['categories', 'photos', 'tags']);
-        $data['published_at'] = \Helper::convertdata_todb($data['published_at']);
-        $data['valor'] = \Helper::convertCurrencyBRToUS($data['valor']);
-        $categories = $request->get('categories', null);
-        $tags = $request->get('tags', null);
+        $data = $request->all();
 
         $post = $this->model->find($id);
 
@@ -162,12 +134,6 @@ class PostController extends Controller
         }
 
         $post->update($data);
-
-        if(!is_null($categories))
-            $post->categories()->sync($categories);
-        if(!is_null($tags))
-            $post->tags()->sync($tags);
-        //dd($tags, $categories);
 
         flash($this->subtitle . ' Atualizada com Sucesso!')->success();
         return redirect()->route($this->admin . '.index');

@@ -9,3 +9,6 @@
 <!-- scripts  -->
 <script type="text/javascript" src="{{ asset('assets/js/scripts.js') }}"></script>
 @yield('scripts')
+@yield('mudarBairros')
+@yield('numberMask')
+@yield('carousel-posts')

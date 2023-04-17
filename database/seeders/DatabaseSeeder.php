@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +21,10 @@ class DatabaseSeeder extends Seeder
             RolesUsersTableSeeder::class,
             PermissionsTableSeeder::class,
             PermissionsRolesTableSeeder::class,
-            //PostsTableSeeder::class
+            CitiesTableSeeder::class,
+            CityNeighborhoodsTableSeeder::class,
+            PostsTableSeeder::class,
+            ConfigurationsTableSeeder::class
         ]);
     }
 }

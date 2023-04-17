@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
 
             $menus = DB::table('modules')
-                ->whereNotIn('title', ['Usuários', 'Módulos', 'Logs', 'Grupos'])
+                ->whereNotIn('title', ['Usuários', 'Módulos', 'Logs', 'Grupos', 'Configurações'])
                 ->get();
 
             foreach($menus as $menu){

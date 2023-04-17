@@ -10,7 +10,7 @@
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">{{$post->title}}</h1>
-                            <hr>
+                            <hr class="underline">
                             <!-- Post meta content-->
 {{--                            <div class="text-muted fst-italic mb-2">{{\Carbon\Carbon::create($post->created_at)->diffForHumans()}}</div>--}}
                             <!-- Post categories-->
@@ -29,6 +29,30 @@
                                 <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$photo->photo)}}" alt="{{$post->title}}" />
                             @endforeach
                         </div>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mt-5">
+                                @if($post->dormitorios > 0)
+                                    <small class="text-muted">{{$post->dormitorios}} <i class="fas fa fa-bed"></i></small>
+                                @endif
+                                @if($post->banheiros > 0)
+                                    <small class="text-muted">{{$post->banheiros}} <i class="fas fa fa-bath"></i></small>
+                                @endif
+                                @if($post->vagas_garagem > 0)
+                                    <small class="text-muted">{{$post->vagas_garagem}} <i class="fas fa fa-car"></i></small>
+                                @endif
+                                @if($post->metro_quadrado_privado > 0)
+                                    <small class="text-muted">{{$post->metro_quadrado_privado}} <strong>m² Privado</strong></small>
+                                @endif
+                                @if($post->metro_quadrado_total > 0)
+                                    <small class="text-muted">{{$post->metro_quadrado_total}} <strong>m² Total</strong></small>
+                                @endif
+                                @if($post->valor > 0)
+                                    <small class="text-muted"> | <strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
+                                @endif
+                            </div>
+                            <hr>
+                        </section>
                         <!-- Post content-->
                         <section class="mb-5">
                             {!! $post->body !!}

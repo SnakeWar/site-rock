@@ -203,6 +203,14 @@
 .masthead__input_text {
     color: whitesmoke;
 }
+.masthead__input_text:focus-within {
+    color: whitesmoke !important;
+    background-color: #0a0a0a !important;
+}
+.masthead__input_text:focus {
+    color: whitesmoke !important;
+    background-color: #0a0a0a !important;
+}
 .masthead__input_text::placeholder {
     color: whitesmoke;
 }
@@ -233,6 +241,74 @@
 .tamanho-300 {
     height: 300px;
 }
-i:hover {
-    color: #ffc800;
+.icon-hover {
+    color: #0a0a0a !important;
 }
+.icon-hover:hover {
+    color: #ffc800 !important;
+}
+.error-404 {
+    padding: 100px !important;
+ }
+.form-select:focus :active {
+    border-color: unset !important;
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+.desenvolvido-por {
+    color: whitesmoke !important;
+}
+.desenvolvido-por a {
+    text-decoration: none !important;
+    color: whitesmoke !important;
+}
+.footer-bg {
+    background-color: #212529;
+    padding: 5px;
+    margin-top: 1rem;
+}
+.underline {
+    color: #0a53be;
+}
+/* Cookies css */
+ .box-cookies.hide {
+     display: none !important;
+ }
+
+.box-cookies {
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+    width: 100%;
+    z-index: 998;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-cookies .msg-cookies,
+.box-cookies .btn-cookies {
+    text-align: center;
+    padding: 25px;
+    color: whitesmoke;
+    font-size: 18px;
+    margin: 0;
+}
+
+.box-cookies .btn-cookies {
+    background: #e22524;
+    cursor: pointer;
+    align-self: normal;
+    border: none;
+}
+
+.box-cookies a {
+    color: whitesmoke;
+}
+
+@media screen and (max-width: 600px) {
+    .box-cookies {
+        flex-direction: column;
+    }
+}
+/* Fim Cookies*/

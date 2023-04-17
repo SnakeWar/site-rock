@@ -42,6 +42,19 @@
                     <div class="mt-2 mb-2">
                         <button type="submit" class="btn text-bg-dark">Enviar</button>
                     </div>
+                    <div class="mt-3">
+                        <div class="form-check">
+                            <label class="form-check-label" for="termos_de_uso">
+                                Aceito Termos de Uso
+                            </label>
+                            <input class="form-check-input {{ $errors->has('termos_de_uso') ? 'has-error' : '' }}" type="checkbox" value="" id="termos_de_uso" value="termos_de_uso" required>
+                            @if ($errors->has('termos_de_uso'))
+                                <p class="alert alert-danger mt-1">
+                                    <strong>{{ $errors->first('termos_de_uso') }}</strong>
+                                </p>
+                            @endif
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

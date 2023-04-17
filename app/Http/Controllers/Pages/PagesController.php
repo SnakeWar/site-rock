@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\HomeRequest;
 use App\Http\Requests\WorkwithusRequest;
+use App\Models\City;
+use App\Models\CityNeighborhoods;
 use App\Models\Configuration;
 use App\Models\Lawyer;
 use App\Models\Tag;
@@ -34,24 +36,37 @@ class PagesController extends Controller
      */
     private $category;
     /**
-    * @var Tag
+     * @var Tag
      */
     private $tag;
     /**
      * @var Post
      */
     private $post;
+    /**
+     * @var City
+     */
+    private $city;
+    /**
+     * @var CityNeighborhoods
+     */
+    private $neighborhood;
 
-    public function __construct(Category   $category,
-                                Post       $post,
-                                Tag $tag,
-                                Configuration $configuration
+    public function __construct(
+        Category          $category,
+        Post              $post,
+        Tag               $tag,
+        Configuration     $configuration,
+        City              $city,
+        CityNeighborhoods $neighborhood
     )
     {
         $this->category = $category;
         $this->post = $post;
         $this->tag = $tag;
         $this->configuration = $configuration;
+        $this->city = $city;
+        $this->neighborhood = $neighborhood;
     }
 
     /**
@@ -59,62 +74,77 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(HomeRequest $request, String $category = null, String $tag = null, String $search = null)
+    public function index(
+        HomeRequest $request,
+        string      $category = null,
+        string      $tag = null,
+        string      $search = null,
+        string      $city = null
+    )
     {
         $category = $category ?? $request->input('category');
         $tag = $tag ?? $request->input('tag');
         $search = $search ?? $request->input('search');
-        // dd($category, $tag, $search, $request);
+        $cityId = $city ?? $request->input('city');
+        $neighborhoodId = $request->input('neighborhood') ?? null;
+        $configuration = $this->configuration->whereCode('SOBRE_MIM')->first();
 
-        if ($category === "Categoria") {
-            $category = "";
-        }
+        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId);
 
-        if ($tag === "Tipo") {
-            $tag = "";
-        }
-
-        $posts = $this->post
-            ->with(['categories', 'tags', 'photos'])
-            ->whereStatus(1)
-            ->whereDate('published_at', '<=', date('Y-m-d'));
         $categories = $this->category->all();
         $tags = $this->tag->all();
+        $cities = $this->city->with('neighborhoods')->get();
 
-        if ($search) {
-            $posts->where('title', 'like', '%' . $search . '%');
-        }
-        if ($category && $category != "Categoria") {
-            $posts->whereHas('categories', function($q) use($category) {
-                $q->where('categories.id', $category);
-            });
-        }
-        if ($tag && $tag != "Tipo") {
-            $posts->whereHas('tags', function($q) use($tag) {
-                $q->where('tags.id', $tag);
-            });
-        }
         return view('pages.index', [
-            'posts' => $posts->orderBy('id', 'desc')
-                ->paginate(6)
-                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
+            'posts' => $posts->whereHighlight(1)->orderBy('id', 'desc')->limit(6)->get(),
             'categories' => $categories,
             'tags' => $tags,
+            'cities' => $cities,
             'pagina' => 'Home',
+            'paginado' => false,
+            'configuration' => $configuration
+        ]);
+    }
+
+    public function posts(HomeRequest $request)
+    {
+        $category = $category ?? $request->input('category');
+        $tag = $tag ?? $request->input('tag');
+        $search = $search ?? $request->input('search');
+        $cityId = $request->input('city') ?? null;
+        $neighborhoodId = $request->input('neighborhood') ?? null;
+
+        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId);
+
+        $categories = $this->category->all();
+        $tags = $this->tag->all();
+        $cities = $this->city->with('neighborhoods')->get();
+
+        return view('pages.posts', [
+            'posts' => $posts->orderBy('id', 'desc')
+                ->paginate(6)
+                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag, 'city' => $request->city, 'neighborhood' => $request->neighborhood]),
+            'categories' => $categories,
+            'tags' => $tags,
+            'cities' => $cities,
+            'pagina' => 'Home',
+            'paginado' => true
         ]);
     }
 
     public function post($slug)
     {
-        $post = $this->post->with(['photos', 'categories', 'tags'])->whereStatus(1)->whereSlug($slug)->first();
+        $post = $this->post->with(['photos', 'categories', 'tags', 'city', 'neighborhood'])->whereStatus(1)->whereSlug($slug)->first();
+
         if (empty($post)) {
             abort(404);
         }
-        $categoryId = $post->categories->first()->id ?? 0;
-        $posts = $this->post->with('categories')->whereNot('id', $post->id)->whereHas('categories', function($q) use($categoryId) {
-            $q->where('categories.id', $categoryId);
-        })->limit(10)->get();
-        $categories = $this->category->all();
+
+        $cityId = $post->categories->first()->id ?? 0;
+        $posts = $this->post->with('categories')
+            ->whereNot('id', $post->id)
+            ->where('city_id', $post->city_id)->limit(10)->get();
+        $cities = $this->city->all();
         $tags = $this->tag->all();
         return view('pages.post', [
             'post' => $post,
@@ -122,13 +152,14 @@ class PagesController extends Controller
             'title' => env('APP_NAME', '') . ' - ' . $post->title,
             'img' => env('APP_URL') . '/storage/' . $post->photo,
             'description' => $post->description,
-            'categories' => $categories,
+            'cities' => $cities,
             'tags' => $tags,
             'posts' => $posts
         ]);
     }
 
-    public function page($page) {
+    public function page($page)
+    {
         $model = $this->configuration->whereCode($page)->first();
         if (empty($model)) {
             abort(404);
@@ -151,22 +182,43 @@ class PagesController extends Controller
         }
     }
 
-//    public function enviar_busca(Request $request)
-//    {
-//        $busca = $request->all();
-//        if (!isset($busca['q'])) {
-//            return redirect('/');
-//        }
-//        $posts = $this->post->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-//        $pages = $this->page->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('body', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-//        $galleries = $this->gallery->where('title', 'like', '%' . $busca['q'] . '%')->orWhere('description', 'like', '%' . $busca['q'] . '%')->limit(5)->get();
-//        return view('pages.busca', [
-//            'posts' => $posts,
-//            'pages' => $pages,
-//            'galleries' => $galleries,
-//            'pagina' => 'Busca',
-//            'secao' => '',
-//            'buscaPor' => $busca['q']
-//        ]);
-//    }
+    private function searchPosts($category, $tag, $search, $cityId, $neighborhoodId)
+    {
+        $posts = $this->post
+            ->with(['categories', 'tags', 'photos'])
+            ->whereStatus(1)
+            ->whereDate('published_at', '<=', date('Y-m-d'));
+
+        if ($category === "Categoria") {
+            $category = "";
+        }
+
+        if ($tag === "Tipo") {
+            $tag = "";
+        }
+
+        if ($search) {
+            $posts->where('title', 'like', '%' . $search . '%');
+        }
+
+        if ($category && $category != "Categoria") {
+            $posts->whereHas('categories', function ($q) use ($category) {
+                $q->where('categories.id', $category);
+            });
+        }
+
+        if ($tag && $tag != "Tipo") {
+            $posts->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tags.id', $tag);
+            });
+        }
+
+        if ($cityId && $neighborhoodId) {
+            $posts->where('city_id', $cityId)->where('city_neighborhoods_id', $neighborhoodId);
+        } else if ($cityId) {
+            $posts->where('city_id', $cityId);
+        }
+
+        return $posts;
+    }
 }

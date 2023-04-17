@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post(   '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar');
-Route::get(   '/buscar', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('buscar-por');
+Route::post(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar');
+Route::get(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar-por');
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
 Route::get(   '/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
+Route::get(   '/oportunidades', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('posts');
 Route::post('/enviar-form', [App\Http\Controllers\Pages\PagesController::class, 'enviar_form'])->name('enviar_form');
 Route::get('/page/{page}', [App\Http\Controllers\Pages\PagesController::class, 'page'])->name('page');
 
@@ -47,11 +48,21 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('modules', App\Http\Controllers\Admin\ModuleController::class)->middleware('can:read_modules');
 
+    Route::resource('cities', App\Http\Controllers\Admin\CityController::class)->middleware('can:read_cities');
+    Route::post('cities/ativo/{id}', [App\Http\Controllers\Admin\CityController::class, 'ativo'])->name('cities.ativo')->middleware('can:update_cities');
+
     Route::post('post_photo/remove', [App\Http\Controllers\Admin\PostPhotosController::class, 'removePhoto'])
         ->name('post_photo_remove')
         ->middleware('can:delete_posts');
     Route::post('post_photo/add/{id}', [App\Http\Controllers\Admin\PostPhotosController::class, 'addPhotos'])
         ->name('post_photo_add')
         ->middleware('can:update_posts');
+
+    Route::post('city_neighborhood/remove', [App\Http\Controllers\Admin\CityNeighborhoodsController::class, 'removeNeighborhood'])
+        ->name('city_neighborhood_remove')
+        ->middleware('can:delete_cities');
+    Route::post('city_neighborhood/add/{id}', [App\Http\Controllers\Admin\CityNeighborhoodsController::class, 'addNeighborhood'])
+        ->name('city_neighborhood_add')
+        ->middleware('can:update_cities');
 });
 

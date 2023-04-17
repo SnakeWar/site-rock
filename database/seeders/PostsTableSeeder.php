@@ -3,11 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
+use App\Traits\UploadTraits;
+use Faker\Core\Number;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Intervention\Image\Image;
+use PhpParser\Node\Scalar\String_;
 
 class PostsTableSeeder extends Seeder
 {
+    use UploadTraits;
     /**
      * Run the database seeds.
      *
@@ -15,17 +20,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-
-//        $post = Post::create([
-//            'title' => Str::random(8),
-//            'description' => Str::random(10),
-//            'body' => Str::random(100),
-//            'photo' => 'posts/teste.png',
-//            'created_at' => now(),
-//            'updated_at' => now(),
-//            'user_id' => 1,
-//        ]);
-//        $post->categories()->sync([3]);
-
+        Post::factory(50)->create();
     }
 }

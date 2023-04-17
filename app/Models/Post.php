@@ -46,6 +46,15 @@ class Post extends Model
     }
     public function photos()
     {
-        return$this->hasMany(PostPhotos::class);
+        return $this->hasMany(PostPhotos::class);
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function neighborhood()
+    {
+        return $this->belongsTo(CityNeighborhoods::class);
     }
 }

@@ -63,11 +63,11 @@ return [
     |
     */
 
-    'logo' => '<b>' . env('APP_NAME', '') . '</b>',
-    'logo_img' => 'assets/img/logo.png',
+    'logo' => 'Admin',
+    'logo_img' => 'assets/img/logo-preto-branco.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_xl_class' => 'brand-image-xl',
     'logo_img_alt' =>  env('APP_NAME', '') . ' Logo',
 
     /*
@@ -290,18 +290,6 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
-//        [
-//            'type'         => 'navbar-search',
-//            'text'         => 'search',
-//            'topnav_right' => true,
-//        ],
-//        [
-//            'type'         => 'fullscreen-widget',
-//            'topnav_right' => true,
-//        ],
-
-        // Sidebar items:
         [
             'key' => '1',
             'text' => 'Dashboard',
@@ -309,69 +297,6 @@ return [
 
             'icon' => 'fa fa-fw fa-folder-open'
         ],
-//        [
-//            'text' => 'Blog',
-//            'url'  => 'admin/posts',
-//            'can'  => 'read_posts',
-//            'icon' => 'fa fa-fw fa-newspaper'
-//        ],
-//        [
-//            'text' => 'Banners',
-//            'url'  => 'admin/banners',
-//            'can'  => 'read_banners',
-//            'icon' => 'fa fa-fw fa-images'
-//        ],
-//        [
-//            'text' => 'Advogados',
-//            'url'  => 'admin/lawyers',
-//            'can'  => 'read_lawyers',
-//            'icon' => 'fa fa-fw fa-gavel'
-//        ],
-//        [
-//            'text' => 'Álbum',
-//            'url'  => 'admin/galleries',
-//            'can'  => 'read_galleries',
-//            'icon' => 'fa fa-fw fa-images'
-//        ],
-//        [
-//            'text' => 'Páginas',
-//            'url'  => 'admin/pages',
-//            'can'  => 'read_pages',
-//            'icon' => 'fa fa-fw fa-file-alt'
-//        ],
-//        [
-//            'text' => 'Produtos',
-//            'url'  => 'admin/products',
-//            'can'  => 'read_products',
-//            'icon' => 'fa fa-fw fa-box-open'
-//        ],
-//
-//        [
-//            'text' => 'Contato',
-//            'url'  => 'admin/contacts',
-//            'can'  => 'read_contacts',
-//            'icon' => 'fa fa-fw fa-envelope'
-//        ],
-//        [
-//            'text' => 'Trabalhe Conosco',
-//            'url'  => 'admin/workwithus',
-//            'can'  => 'read_workwithus',
-//            'icon' => 'fa fa-fw fa-file-pdf'
-//        ],
-//        [
-//            'text' => 'Subseções',
-//            'url'  => 'admin/subsections',
-//            'can'  => 'read_subsections',
-//            'icon' => 'fa fa-fw fa-building'
-//        ],
-//        [
-//            'text'        => 'Categorias',
-//            'url'         => 'admin/categories',
-//            'icon'        => 'fa fa-fw fa-tag',
-//            'can'         => 'read_categories',
-////            'label'       => 4,
-//            //          'label_color' => 'success',
-//        ],
         ['header' => 'CONFIGURAÇÕES DO SISTEMA'],
         [
             'text' => 'Usuários',
@@ -396,78 +321,12 @@ return [
             'icon'    => 'fas fa-fw fa-lock',
             'can'  => 'read_roles',
         ],
-//        [
-//            'text'        => 'pages',
-//            'url'         => 'admin/pages',
-//            'icon'        => 'far fa-fw fa-file',
-//            'label'       => 4,
-//            'label_color' => 'success',
-//        ],
-//        ['header' => 'account_settings'],
-//        [
-//            'text' => 'profile',
-//            'url'  => 'admin/settings',
-//            'icon' => 'fas fa-fw fa-user',
-//        ],
-//        [
-//            'text' => 'change_password',
-//            'url'  => 'admin/settings',
-//            'icon' => 'fas fa-fw fa-lock',
-//        ],
-//        [
-//            'text'    => 'multilevel',
-//            'icon'    => 'fas fa-fw fa-share',
-//            'submenu' => [
-//                [
-//                    'text' => 'level_one',
-//                    'url'  => '#',
-//                ],
-//                [
-//                    'text'    => 'level_one',
-//                    'url'     => '#',
-//                    'submenu' => [
-//                        [
-//                            'text' => 'level_two',
-//                            'url'  => '#',
-//                        ],
-//                        [
-//                            'text'    => 'level_two',
-//                            'url'     => '#',
-//                            'submenu' => [
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url'  => '#',
-//                                ],
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url'  => '#',
-//                                ],
-//                            ],
-//                        ],
-//                    ],
-//                ],
-//                [
-//                    'text' => 'level_one',
-//                    'url'  => '#',
-//                ],
-//            ],
-//        ],
-//        ['header' => 'labels'],
-//        [
-//            'text'       => 'important',
-//            'icon_color' => 'red',
-//            'url'        => '#',
-//        ],
-//        [
-//            'text'       => 'warning',
-//            'icon_color' => 'yellow',
-//            'url'        => '#',
-//        ],
-//        [
-//            'text'       => 'information',
-//            'icon_color' => 'cyan',
-//            'url'        => '#',
-//        ],
+        [
+            'text' => 'Configurações',
+            'url'  => 'admin/configurations',
+            'icon' => 'fas fa-fw fa-wrench',
+            'can'  => 'read_users',
+        ],
     ],
 
     /*

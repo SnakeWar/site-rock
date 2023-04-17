@@ -16,24 +16,17 @@
     </div>
     <!-- Categories widget-->
     <div class="card mb-4">
-        <div class="card-header">Categorias / Tipo</div>
+        <div class="card-header">Procurar por Cidade</div>
         <hr class="mt-1">
         <div class="card-body">
             <div class="row">
-                <div class="col-sm-6">
-                    <ul class="list-unstyled mb-0">
-                        @foreach($categories as $item)
-                            <li><a class="link-dark text-decoration-none" href="{{route('buscar', ['category' => $item->id])}}">{{$item->title}}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-sm-6">
-                    <ul class="list-unstyled mb-0">
-                        @foreach($tags as $item)
-                            <li><a class="link-dark text-decoration-none" href="{{route('buscar', ['tag' => $item->id])}}">{{$item->title}}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+                @foreach($cities as $item)
+                    <div class="col">
+                        <a class="link-dark text-decoration-none" width="100%" href="{{route('buscar', ['city' => $item->id])}}">
+                            <button class="btn btn-sm btn-outline-secondary mb-1">{{$item->title}}</button>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -46,7 +39,13 @@
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-0">
                         @foreach($posts ?? [] as $item)
-                            <li class=""><a class="link-dark text-decoration-none" href="{{route('post', ['slug' => $item->slug])}}">{{$item->title}}</a></li>
+                            <li class="">
+                                <a class="link-dark text-decoration-none" href="{{route('post', ['slug' => $item->slug])}}">
+                                    <button class="btn btn-sm btn-outline-secondary mb-1">
+                                        {{$item->title}}
+                                    </button>
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>

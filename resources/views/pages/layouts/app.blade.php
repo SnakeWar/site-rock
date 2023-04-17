@@ -3,51 +3,12 @@
 
 <head>
     @include('pages.layouts.block.head')
-
-    <style>
-        .box-cookies.hide {
-            display: none !important;
-        }
-
-        .box-cookies {
-            position: fixed;
-            background: rgba(0, 0, 0, .9);
-            width: 100%;
-            z-index: 998;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .box-cookies .msg-cookies,
-        .box-cookies .btn-cookies {
-            text-align: center;
-            padding: 25px;
-            color: #ffc800;
-            font-size: 18px;
-            margin: 0;
-        }
-
-        .box-cookies .btn-cookies {
-            background: #e22524;
-            cursor: pointer;
-            align-self: normal;
-            border: none;
-        }
-
-        @media screen and (max-width: 600px) {
-            .box-cookies {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
 <!-- preloader -->
 <div id="preloader">
     <div class="inner">
         <div class="pulsex">
-            <img class="w-100" src="{{ asset('assets/img/logo.png') }}">
+            <img class="w-100" src="{{asset('assets/img/logo-preto-branco.png')}}">
         </div>
     </div>
 </div>

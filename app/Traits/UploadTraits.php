@@ -49,4 +49,19 @@ trait UploadTraits
         }
         return $uploadImages;
     }
+    public function fakeImage(String $image, String $dir) {
+        if (!is_dir(public_path($dir))) {
+            mkdir(public_path($dir), 0775, true);
+        }
+        $result = Image::make(public_path("/assets/img/") . $image)
+            ->insert(public_path("/watermark/watermark.png"), 'center')
+            ->save(public_path($dir), 60)
+            // Redimensionada a imagem
+            ->resize(300, 300, function($constraint){
+                $constraint->aspectRatio();
+            })
+            // Pega a imagem redimensionada e salva na pasta thumbnail
+            ->save(public_path($dir) . $image);
+        return $result;
+    }
 }

@@ -1,31 +1,8 @@
 @extends('pages.layouts.app')
 @section('content')
-    <!-- Masthead-->
-    <header class="masthead"
-            style="
-                background: url({{asset('assets/img/casa-background-filtro.webp')}});
-                background-repeat: no-repeat;
-                background-attachment: scroll;
-                background-position: center center;
-                background-size: cover;"
-    >
-        <div class="container">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">{{ env('APP_NAME', 'Site') }}</h1>
-                <p class="lead text-white">{{ env('APP_DESCRIPTION', 'Description') }}</p>
-            </div>
-            <div class="row masthead__bg_search_form">
-                @include('pages.layouts.form._form_search')
-            </div>
-        </div>
-    </header>
-    <main>
-        @include('pages.layouts.sections._oportunities')
-        @include('pages.layouts.sections._cities')
-        @include('pages.layouts.sections._about')
-    </main>
+    @include('pages.layouts.sections._oportunities')
 @endsection
-@section('scripts')
+@section('carousel-posts')
     <script>
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({

@@ -196,6 +196,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="categories">Cidade</label>
+                            <select id="city" name="city" class="form-control">
+                                @foreach($cities as $item)
+                                    <option
+                                        value="{{$item->id}}" {{ isset($model) ? (($model->city_id == $item->id) ? 'selected' : '') : '' }}>{{$item->title}}</option>
+                                    {{$item->id}}|{{$item->title}}
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="tags">Bairro</label>
+                            <select id="neighborhood" name="neighborhood" class="form-control" >
+                                @isset($model)
+                                    @foreach($cityNeighborhoods as $item)
+                                        <option
+                                            value="{{$item->id}}" {{ isset($model) ? (($model->city_id == $item->id) ? 'selected' : '') : '' }}>{{$item->title}}</option>
+                                        {{$item->id}}|{{$item->title}}
+                                    @endforeach
+                                @endisset
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="">Conteúdo</label>
                     <textarea type="text" id="editor" name="body" cols="30" rows="10"
@@ -226,7 +254,6 @@
                         {{ isset($model) ? 'Atualizar '.$subtitle : 'Criar '.$subtitle }}
                     </button>
                 </div>
-
             </form>
         </div>
         @isset($model)
@@ -256,7 +283,6 @@
                                 <button type="submit" class="btn btn-sm btn-danger my-2"><i class="fa fa-trash"></i></button>
                             </form>
                             <img src="{{asset('storage/' . $photo->photo)}}" alt="" class="img-thumbnail">
-
                         </div>
                     @endforeach
                 </div>
@@ -275,6 +301,13 @@
     <script src="{{asset('assets/js/jquery.maskMoney.min.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
     <script src="{{asset('assets/js/ckeditor-menu.js')}}"></script>
+    <script src="{{asset('assets/js/city-and-neighborhoods.js')}}"></script>
+    <script>
+        $("#city").change(function(){
+            const baseUrl = `<?= env('APP_URL') ?>`;
+            mudarBairros(baseUrl);
+        });
+    </script>
     <script>
         $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     </script>

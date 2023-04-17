@@ -68,8 +68,22 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'title' => 'Logs',
-                'url' => 'url',
+                'url' => 'logs',
                 'icon' => '',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'title' => 'Cidades',
+                'url' => 'cities',
+                'icon' => 'fas fa-fw fa-building',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'title' => 'Configurações',
+                'url' => 'configurations',
+                'icon' => 'fas fa-fw fa-wrench',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
