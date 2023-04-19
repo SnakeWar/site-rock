@@ -29,7 +29,7 @@ class ConfigurationsTableSeeder extends Seeder
     <span style="color:#444444;">1. Termos</span>
 </h2>
 <p>
-    <span style="color:#444444;">Ao acessar o site </span><a href="https://viniciusaraujocorretor.com.br/">Vinícius Araújo</a><span style="color:#444444;">, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</span>
+    <span style="color:#444444;">Ao acessar o site </span><a href="https://viniciusaraujoimoveis.com.br/">Vinícius Araújo</a><span style="color:#444444;">, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</span>
 </p>
 <h2 class="western">
     <span style="color:#444444;">2. Uso de Licença</span>
@@ -110,7 +110,7 @@ class ConfigurationsTableSeeder extends Seeder
     <span style="color:#444444;">Política de Privacidade</span>
 </h2>
 <p>
-    <span style="color:#444444;">A sua privacidade é importante para nós. É política do Vinícius Araújo respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site </span><a href="https://viniciusaraujocorretor.com.br/">Vinícius Araújo</a><span style="color:#444444;">, e outros sites que possuímos e operamos.</span>
+    <span style="color:#444444;">A sua privacidade é importante para nós. É política do Vinícius Araújo respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site </span><a href="https://viniciusaraujoimoveis.com.br/">Vinícius Araújo</a><span style="color:#444444;">, e outros sites que possuímos e operamos.</span>
 </p>
 <p>
     <span style="color:#444444;">Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</span>
@@ -161,6 +161,42 @@ class ConfigurationsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'code' => 'APP_DESCRIPTION',
+                'value' => 'Vinicius Araújo é um especialista em casas de alto padrão em condomínio fechado na região de Natal e Parnamirim/RN.',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'code' => 'APP_EMAIL',
+                'value' => 'viniciusaraujoimoveis@gmail.com',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+            'code' => 'APP_INSTAGRAM',
+            'value' => 'https://www.instagram.com/viniciusaraujob_/',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+        'code' => 'APP_NAME',
+                'value' => 'Vinícius Araújo Imóveis',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        [
+            'code' => 'APP_URL',
+            'value' => 'https://viniciusaraujoimoveis.com.br',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+        'code' => 'APP_WHATSAPP',
+                'value' => 'https://api.whatsapp.com/send?phone=5584998974590&amp;text=Ol%C3%A1!%20Vi%20seu%20perfil%20no%20Instagram%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ]);
     }
 }

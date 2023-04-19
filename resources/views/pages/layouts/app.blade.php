@@ -5,8 +5,8 @@
     @include('pages.layouts.block.head')
     <style>
         @font-face {
-            font-family: 'Luxia';
-            src: url({{asset('assets/fonts/Luxia-Regular.otf')}}) format('truetype');
+            font-family: 'Fonte';
+            src: url({{asset('assets/fonts/Anuphan-Regular.ttf')}}) format('truetype');
         }
     </style>
 </head>

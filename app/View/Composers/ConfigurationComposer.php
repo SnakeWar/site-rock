@@ -3,7 +3,6 @@
 namespace App\View\Composers;
 
 use App\Models\Configuration;
-use Illuminate\View\View;
 
 class ConfigurationComposer
 {
@@ -17,24 +16,20 @@ class ConfigurationComposer
     /**
      * Bind data to the view.
      */
-    public function compose(View $view): void
+    public function compose($view)
     {
-        $view->with(
-            'configuration_head',
-            () => {
-                $result = $this->configurations
-                    ->whereCode('APP_DESCRIPTION')
-                    ->whereCode('APP_APP_NAME')
-                    ->whereCode('APP_EMAIL')
-                    ->whereCode('APP_INSTAGRAM')
-                    ->whereCode('APP_URL')
-                    ->whereCode('APP_WHATSAPP')
-                    ->orderBy('code')
-                    ->get();
-                return array_map(function ($it) {
-                    return [$it->code => $it->value];
-                }, $result);
-            }
-        );
+        $result = $this->configurations
+            ->whereCode('APP_DESCRIPTION')
+            ->orWhere('code', 'APP_NAME')
+            ->orWhere('code', 'APP_EMAIL')
+            ->orWhere('code', 'APP_INSTAGRAM')
+            ->orWhere('code', 'APP_URL')
+            ->orWhere('code', 'APP_WHATSAPP')
+            ->orderBy('code')
+            ->get();
+        foreach($result as $it) {
+            $configuration[$it['code']] = $it['value'];
+        }
+        return $view->with('configuration', $configuration);
     }
 }

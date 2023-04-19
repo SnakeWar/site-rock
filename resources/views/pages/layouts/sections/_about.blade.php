@@ -18,8 +18,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 img-thumbnail">
-                <img src="{{asset('assets/img/vinicius.jpeg')}}" alt="">
+            <div class="col-md-4">
+                <img class="img-thumbnail" src="{{asset('assets/img/vinicius.webp')}}" alt="">
             </div>
         </div>
         <hr class="featurette-divider">
