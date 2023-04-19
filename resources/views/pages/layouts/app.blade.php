@@ -3,6 +3,12 @@
 
 <head>
     @include('pages.layouts.block.head')
+    <style>
+        @font-face {
+            font-family: 'Luxia';
+            src: url({{asset('assets/fonts/Luxia-Regular.otf')}}) format('truetype');
+        }
+    </style>
 </head>
 <!-- preloader -->
 <div id="preloader">

@@ -12,7 +12,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route::get('/foo', function () {
+//     Artisan::call('storage:link');
+// });
+ Route::get('/foo', function () {
+     Artisan::call('config:clear');
+     Artisan::call('route:clear');
+     Artisan::call('view:clear');
+ });
 Route::post(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar');
 Route::get(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar-por');
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');

@@ -11,18 +11,15 @@
                         <a target="_blank" href="{{env('APP_INSTAGRAM', '')}}"><i class="fa fa-instagram fa-3x text-dark icon-hover"></i></a>
                     </div>
                     <div class="col-lg-2 col-md-2 col">
-                        <a target="_blank" href="{{env('APP_EMAIL', '')}}"><i class="fa fa-envelope fa-3x text-dark icon-hover"></i></a>
+                        <a target="_blank" href="mailto:{{env('APP_EMAIL', '')}}"><i class="fa fa-envelope fa-3x text-dark icon-hover"></i></a>
                     </div>
                     <div class="col-lg-2 col-md-2 col">
                         <a target="_blank" href="{{env('APP_WHATSAPP', '')}}"><i class="fa fa-whatsapp fa-3x text-dark icon-hover"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 tamanho-500 img-thumbnail"
-                 style="background-image: url({{asset('assets/img/vinicius.jpeg')}});
-                         background-repeat: no-repeat;
-                         background-position: top center"
-            >
+            <div class="col-md-4 img-thumbnail">
+                <img src="{{asset('assets/img/vinicius.jpeg')}}" alt="">
             </div>
         </div>
         <hr class="featurette-divider">

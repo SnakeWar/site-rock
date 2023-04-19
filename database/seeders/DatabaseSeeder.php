@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             PermissionsRolesTableSeeder::class,
             CitiesTableSeeder::class,
             CityNeighborhoodsTableSeeder::class,
-            PostsTableSeeder::class,
+            //PostsTableSeeder::class,
             ConfigurationsTableSeeder::class
         ]);
     }
