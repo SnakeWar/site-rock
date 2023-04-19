@@ -14,7 +14,7 @@
                     @csrf
                     <div class="mb-2">
                         <label for="name" class="col-form-label">Nome:</label>
-                        <input type="text" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" id="name" required>
+                        <input name="name" type="text" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" id="name" required>
                         @if ($errors->has('name'))
                             <p class="alert alert-danger mt-1">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="message-text" class="col-form-label">E-mail:</label>
-                        <input type="email" class="form-control {{ $errors->has('email') ? 'has-error' : '' }}" id="email" required>
+                        <input name="email" type="email" class="form-control {{ $errors->has('email') ? 'has-error' : '' }}" id="email" required>
                         @if ($errors->has('email'))
                             <p class="alert alert-danger mt-1">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="message-text" class="col-form-label">Telefone:</label>
-                        <input type="text" class="form-control {{ $errors->has('telephone') ? 'has-error' : '' }}" id="telephone" required>
+                        <input name="telephone" type="text" class="form-control {{ $errors->has('telephone') ? 'has-error' : '' }}" id="telephone" required>
                         @if ($errors->has('telephone'))
                             <p class="alert alert-danger mt-1">
                                 <strong>{{ $errors->first('telephone') }}</strong>
@@ -47,12 +47,7 @@
                             <label class="form-check-label" for="termos_de_uso">
                                 Aceito Termos de Uso
                             </label>
-                            <input class="form-check-input {{ $errors->has('termos_de_uso') ? 'has-error' : '' }}" type="checkbox" value="" id="termos_de_uso" value="termos_de_uso" required>
-                            @if ($errors->has('termos_de_uso'))
-                                <p class="alert alert-danger mt-1">
-                                    <strong>{{ $errors->first('termos_de_uso') }}</strong>
-                                </p>
-                            @endif
+                            <input class="form-check-input" type="checkbox" id="termos_de_uso" value="termos_de_uso" required>
                         </div>
                     </div>
                 </form>
@@ -60,11 +55,13 @@
         </div>
     </div>
 </div>
-@section('scripts')
+@section('form')
     <script src="{{asset('assets/js/form.js')}}"></script>
-    <script>
-        window.onload = function() {
-            chamadaDoForm('<?= $errors ?>');
-        }
-    </script>
+        <script>
+            if ($('.alert').length) {
+                window.onload = function() {
+                    $('#formModal').modal('show');
+                };
+            }
+        </script>
 @endsection

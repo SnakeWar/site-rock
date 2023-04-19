@@ -12,3 +12,4 @@
 @yield('mudarBairros')
 @yield('numberMask')
 @yield('carousel-posts')
+@yield('form')

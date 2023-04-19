@@ -22,5 +22,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer('pages.layouts.block.head', ConfigurationComposer::class);
+        Facades\View::composer('pages.index', ConfigurationComposer::class);
     }
 }

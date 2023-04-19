@@ -4,7 +4,7 @@
         <div class="row featurette justify-content-center">
             <div class="col-md-6">
                 <h2 class="featurette-heading fw-normal lh-1 icon-hover">Vinícius Araújo</h2>
-                <p class="lead">{{$configuration->value}}</p>
+                <p class="lead">{{$configuration['APP_DESCRIPTION']}}</p>
                 <p>Entre em contato nas minhas redes sociais e e-mail:</p>
                 <div class="row mb-3 justify-content-start icon-hover d-flex">
                     <div class="col-lg-2 col-md-2 col">

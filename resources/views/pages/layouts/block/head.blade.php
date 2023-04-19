@@ -2,33 +2,33 @@
 <meta http-equiv="content-language" content="pt-br">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] }}" />
+<meta name="description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] ?? '' }}" />
 <meta name="keywords" content="" />
 <meta name="googlebot" content="index,follow">
-<meta name="subject" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta name="abstract" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta name="topic" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta name="summary" content="{{ $title ?? $configuration['APP_DESCRIPTION'] }}">
-<meta property="og:url" content="{{ $url ?? env('APP_URL') }}">
+<meta name="subject" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta name="abstract" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta name="topic" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta name="summary" content="{{ $title ?? $configuration['APP_DESCRIPTION'] ?? '' }}">
+<meta property="og:url" content="{{ $url ?? $configuration['APP_URL'] ?? '' }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta property="og:image" content="{{ $img ?? asset('assets/img/favicon.ico') }}">
-<meta property="og:description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] }}">
-<meta property="og:site_name" content="{{ $title ?? $configuration['APP_NAME'] }}">
+<meta property="og:title" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta property="og:image" content="{{ $img ?? asset('assets/img/logo-branco-preto.png') }}">
+<meta property="og:description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] ?? '' }}">
+<meta property="og:site_name" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
 <meta property="og:locale" content="pt_BR">
-<meta itemprop="name" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta itemprop="description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] }}">
-<meta itemprop="image" content="{{ $img ?? asset('assets/img/logo-preto-branco.png') }}">
+<meta itemprop="name" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta itemprop="description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] ?? '' }}">
+<meta itemprop="image" content="{{ $img ?? asset('assets/img/logo-branco-preto.png') }}">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="{{ $configuration['APP_NAME'] }}">
-<meta name="twitter:url" content="{{ $url ?? $configuration['APP_URL'] }}">
-<meta name="twitter:title" content="{{ $title ?? $configuration['APP_NAME'] }}">
-<meta name="twitter:description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] }}">
+<meta name="twitter:site" content="{{ $configuration['APP_NAME'] ?? '' }}">
+<meta name="twitter:url" content="{{ $url ?? $configuration['APP_URL'] ?? '' }}">
+<meta name="twitter:title" content="{{ $title ?? $configuration['APP_NAME'] ?? '' }}">
+<meta name="twitter:description" content="{{ $description ?? $configuration['APP_DESCRIPTION'] ?? '' }}">
 <meta name="twitter:image" content="{{ $img ?? asset('assets/img/logo-preto-branco.png') }}">
 <meta name="msapplication-TileColor" content="#3eb0ee">
 <meta name="theme-color" content="#3eb0ee">
 
-<title>{{ $title ?? $configuration['APP_NAME'] }}</title>
+<title>{{ $title ?? $configuration['APP_NAME'] ?? '' }}</title>
 <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
