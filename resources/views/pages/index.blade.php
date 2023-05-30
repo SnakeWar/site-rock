@@ -10,13 +10,11 @@
                 background-size: cover;"
     >
         <div class="container">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">{{ $configuration['APP_NAME'] }}</h1>
-                <p class="lead text-white">{{ $configuration['APP_DESCRIPTION'] }}</p>
+            <div class="col-lg-12 col-md-8 mx-auto">
+                <h1 class="fw-light titulo-inicial">{!! $configuration['APP_INDEX_TITLE'] ?? "" !!}</h1>
+                <p class="lead text-white">{!! $configuration['APP_INDEX_SUBTITLE'] ?? "" !!}</p>
             </div>
-            <div class="row masthead__bg_search_form">
                 @include('pages.layouts.form._form_search')
-            </div>
         </div>
     </header>
     <main>

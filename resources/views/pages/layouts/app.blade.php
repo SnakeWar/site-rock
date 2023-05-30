@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     @include('pages.layouts.block.head')
     <style>
         @font-face {
             font-family: 'Fonte';
-            src: url({{asset('assets/fonts/Luxia-Regular.otf')}}) format('truetype');
+            src: url({{asset('assets/fonts/Alice-Regular.ttf')}}) format('truetype');
         }
     </style>
 </head>
@@ -14,14 +14,14 @@
 <div id="preloader">
     <div class="inner">
         <div class="pulsex">
-            <img class="w-100" src="{{asset('assets/img/logo-preto-branco.png')}}">
+            <img style="width: 200px" src="{{asset('assets/img/logo-preto-branco.webp')}}">
         </div>
     </div>
 </div>
 {{--Acessibilidade--}}
 <body id="header-top">
 <div class="whatsapp">
-    <a target="_blank" href="{{env('APP_WHATSAPP')}}"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
+    <a target="_blank" href="{{$configuration['APP_WHATSAPP']}}"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
 </div>
 {{--<a href="#" id="open-acessibilidade"><img src="{{asset('assets/img/icons/acessibilidade.svg')}}"></a>--}}
 
@@ -120,7 +120,7 @@
 @include('pages.layouts.block.script')
 
 <div class="box-cookies hide">
-    <p class="msg-cookies">Utilizamos cookies para assegurar que lhe fornecemos a melhor experiência na nossa página web.</p>
+    <p class="msg-cookies">Nós usamos cookies e outras tecnologias semelhantes para melhorar a sua experiência em nossos serviços, personalizar publicidade e guardar seus dados de login e cadastro. Ao utilizar nossos serviços, você concorda com nossa política de privacidade.</p>
     <a href="{{route('page', ['page' => 'termos-de-uso'])}}">Termos de Uso</a>
     <a href="{{route('page', ['page' => 'politicas-de-privacidade'])}}">Políticas de Privacidade</a>
     <button class="btn-cookies">Aceitar!</button>

@@ -24,7 +24,7 @@ class ConfigurationUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'         => 'required|',
+            'code'         => 'required',
             'value'         => 'required',
         ];
     }

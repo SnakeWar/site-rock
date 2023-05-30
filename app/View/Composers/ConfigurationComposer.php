@@ -19,12 +19,6 @@ class ConfigurationComposer
     public function compose($view)
     {
         $result = $this->configurations
-            ->whereCode('APP_DESCRIPTION')
-            ->orWhere('code', 'APP_NAME')
-            ->orWhere('code', 'APP_EMAIL')
-            ->orWhere('code', 'APP_INSTAGRAM')
-            ->orWhere('code', 'APP_URL')
-            ->orWhere('code', 'APP_WHATSAPP')
             ->orderBy('code')
             ->get();
         foreach($result as $it) {

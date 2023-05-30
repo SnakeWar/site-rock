@@ -7,19 +7,12 @@
         </div>
         <div class="row justify-content-center">
             @foreach($cities as $item)
-                <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="col p-0 position-relative img-cities"
+                     style="background-image: url({{asset('storage'). '/' . $item->photo}});">
                     <div class="cidades-item">
-                        <a class="cidades-link" href="{{route("buscar-por") . "?city=". $item->id}}">
-                            <div class="cidades-hover">
-                                <div class="cidades-hover-content"><i class="fas fa-search fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="{{asset('storage'). '/' . $item->photo}}" alt="{{$item->title}}" />
-                        </a>
-                        <div class="cidades-caption">
-                            <div class="cidades-caption-heading">{{$item->title}}</div>
-                            {{--                                    <div class="cidades-caption-subheading text-muted">Illustration</div>--}}
-                        </div>
+                        <p class="titulo-cidade position-absolute z-1">{{$item->title}}</p>
                     </div>
+                    <a class="stretched-link cidades-link" href="{{route("buscar-por") . "?city=". $item->id}}"></a>
                 </div>
             @endforeach
         </div>

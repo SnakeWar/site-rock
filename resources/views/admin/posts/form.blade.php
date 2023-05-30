@@ -55,7 +55,7 @@
                             <label for="">Descrição</label>
                             <input type="text" name="description"
                                    class="form-control @error('description') is-invalid @enderror"
-                                   value="{{ isset($model) ? $model->title : old('description') }}">
+                                   value="{{ isset($model) ? $model->description : old('description') }}">
                             @error('description')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -158,8 +158,7 @@
                             <label for="valor">Valor</label>
                             <input type="text" name="valor"
                                    id="price"
-                                   class="form-control
-                                   @error('valor') is-invalid @enderror"
+                                   class="form-control @error('valor') is-invalid @enderror"
                                    value="{{ isset($model) ? 'R$ ' . number_format($model->valor, 2, ',', '.') :
                                    old('valor') }}">
                             @error('valor')
@@ -200,7 +199,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="categories">Cidade</label>
-                            <select id="city" name="city" class="form-control">
+                            <select id="city" name="city_id" class="form-control">
                                 @foreach($cities as $item)
                                     <option
                                         value="{{$item->id}}" {{ isset($model) ? (($model->city_id == $item->id) ? 'selected' : '') : '' }}>{{$item->title}}</option>
@@ -212,11 +211,11 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="tags">Bairro</label>
-                            <select id="neighborhood" name="neighborhood" class="form-control" >
+                            <select id="neighborhood" name="city_neighborhoods_id" class="form-control" >
                                 @isset($model)
                                     @foreach($cityNeighborhoods as $item)
                                         <option
-                                            value="{{$item->id}}" {{ isset($model) ? (($model->city_id == $item->id) ? 'selected' : '') : '' }}>{{$item->title}}</option>
+                                            value="{{$item->id}}" {{ isset($model) ? (($model->city_neighborhoods_id == $item->id) ? 'selected' : '') : '' }}>{{$item->title}}</option>
                                         {{$item->id}}|{{$item->title}}
                                     @endforeach
                                 @endisset

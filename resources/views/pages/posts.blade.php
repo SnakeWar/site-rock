@@ -1,5 +1,8 @@
 @extends('pages.layouts.app')
 @section('content')
+    <div class="container">
+        @include('pages.layouts.form._form_search')
+    </div>
     @include('pages.layouts.sections._oportunities')
 @endsection
 @section('carousel-posts')

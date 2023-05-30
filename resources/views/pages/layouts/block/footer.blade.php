@@ -6,7 +6,7 @@
             </button>
             @include('pages.layouts.form._form_contato')
         </p>
-        <p class="mb-1"><img class="logo-footer" src="{{asset('assets/img/logo-preto-branco.png')}}" alt=""></p>
+        <p class="mb-1"><img class="logo-footer" src="{{asset('assets/img/logo-preto-branco.webp')}}" alt=""></p>
 {{--        <p><strong>{{ env('APP_NAME', 'Site') }}</strong></p>--}}
         <p class="mb-1">
             <a class="text-dark" href="{{route('page', ['page' => 'termos-de-uso'])}}">

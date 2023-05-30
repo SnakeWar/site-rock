@@ -1,7 +1,7 @@
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header p-3">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content p-4">
+            <div class="modal-header">
                 <div>
                     <h1 class="modal-title fs-5" id="formModalLabel">Posso te ajudar a encontrar o imóvel que deseja</h1>
                     <p>Deixe seus dados de contato que irei te atender de forma especial</p>
@@ -39,7 +39,7 @@
                             </p>
                         @endif
                     </div>
-                    <div class="mt-2 mb-2">
+                    <div class="mt-5 mb-2">
                         <button type="submit" class="btn text-bg-dark">Enviar</button>
                     </div>
                     <div class="mt-3">
