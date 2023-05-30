@@ -1,0 +1,314 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+.active>.page-link, .page-link.active {
+    color: var(--bs-pagination-active-color);
+    background-color: #212529;
+    border-color: #212529;
+}
+.page-link:hover {
+    color: #212529;
+}
+.page-link, .page-link:focus {
+    color: #212529;
+}
+
+/* ini: Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 1999;
+}
+
+#preloader .inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pulsex {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+.pulseIcon:hover {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+/* end: Preloader */
+
+/* Ícone whatsapp*/
+.whatsapp {
+    position: fixed;
+    z-index: 1999;
+    right: 15px;
+    top: 40%;
+}
+.whatsapp a img {
+    width: 50px;
+}
+.paginacao div {
+    display: block!important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo {
+    width: 80px;
+}
+.logo-footer {
+    width: 80px;
+}
+.redes-sociais li a i {
+    color: white !important;
+    font-size: 30px;
+    margin-left: 10px;
+}
+/*Configuração Owl Carousel */
+.owl-nav button {
+    background: unset!important;
+    position: absolute;
+    top: 50%;
+    transform: scale(1);
+    transition: .6s;
+    margin: 0!important;
+}
+.owl-nav button.owl-prev {
+    left: 0;
+}
+.owl-nav button.owl-next {
+    right: 0;
+}
+.owl-nav button:hover {
+    transform: scale(1.50);
+}
+.form-control {
+    text-align: center;
+    border-bottom-color: #212529;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: none;
+}
+.form-select {
+    text-align: center;
+    border-bottom-color: #212529;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: none;
+}
+.side-page .card, .side-page .card-header, .side-page .card-body {
+    border: none;
+    background: none;
+}
+.masthead__bg_search_form {
+    background-color: #0a0a0a;
+    border-radius: 15px;
+    padding: 15px 15px;
+}
+.masthead__input_text {
+    color: whitesmoke;
+}
+.masthead__input_text:focus-within {
+    color: whitesmoke !important;
+    background-color: #0a0a0a !important;
+}
+.masthead__input_text:focus {
+    color: whitesmoke !important;
+    background-color: #0a0a0a !important;
+}
+.masthead__input_text::placeholder {
+    color: whitesmoke;
+}
+.masthead__input_select {
+    color: whitesmoke;
+}
+.masthead__input_option {
+    background-color: #0a0a0a;
+    color: whitesmoke;
+}
+.masthead__input_option:active, .masthead__input_option:checked, .masthead__input_option:current {
+    background-color: #0a0a0a;
+    color: whitesmoke;
+}
+.form-control__white_border {
+    border-bottom-color: whitesmoke;
+}
+.form-select__white_border {
+    border-bottom-color: whitesmoke;
+}
+.bg-black {
+    background-color: rgb(33,37,41) !important;
+}
+.tamanho-500 {
+    height: 350px;
+    width: 500px;
+}
+.tamanho-300 {
+    height: 300px;
+}
+.icon-hover {
+    color: #0a0a0a !important;
+}
+.icon-hover:hover {
+    color: #ffc800 !important;
+}
+.error-404 {
+    padding: 100px !important;
+ }
+.form-select:focus :active {
+    border-color: unset !important;
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+.desenvolvido-por {
+    color: whitesmoke !important;
+}
+.desenvolvido-por a {
+    text-decoration: none !important;
+    color: whitesmoke !important;
+}
+.footer-bg {
+    background-color: #212529;
+    padding: 5px;
+    margin-top: 1rem;
+}
+.underline {
+    color: #0a53be;
+}
+/* Cookies css */
+ .box-cookies.hide {
+     display: none !important;
+ }
+
+.box-cookies {
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+    width: 100%;
+    z-index: 998;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-cookies .msg-cookies,
+.box-cookies .btn-cookies {
+    text-align: center;
+    padding: 25px;
+    color: whitesmoke;
+    font-size: 18px;
+    margin: 0;
+}
+
+.box-cookies .btn-cookies {
+    background: #e22524;
+    cursor: pointer;
+    align-self: normal;
+    border: none;
+}
+
+.box-cookies a {
+    color: whitesmoke;
+}
+
+@media screen and (max-width: 600px) {
+    .box-cookies {
+        flex-direction: column;
+    }
+}
+/* Fim Cookies*/
