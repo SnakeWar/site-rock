@@ -6,7 +6,7 @@
     <style>
         @font-face {
             font-family: 'Fonte';
-            src: url({{asset('assets/fonts/Luxia-Regular.otf')}}) format('truetype');
+            src: url({{asset('assets/fonts/Alice-Regular.ttf')}}) format('truetype');
         }
     </style>
 </head>

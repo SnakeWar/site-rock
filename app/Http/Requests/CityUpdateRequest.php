@@ -26,11 +26,7 @@ class CityUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'description' => 'required',
-            'dormitorios' => 'required|numeric',
-            'banheiros' => 'required|numeric',
-            'vagas_garagem' => 'required|numeric',
-            'valor' => 'required',
+            'description' => 'required'
         ];
     }
     public function messages()
