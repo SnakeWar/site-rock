@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="">
-        <div class="card mb-4 shadow z-2" id="formFixo">
+        <div class="card mb-4 shadow bg-white z-1" id="formFixo">
             <div class="card-header">Envie uma mensagem</div>
             <div class="card-body">
                 @include('pages.layouts.form._form_contato')
