@@ -37,6 +37,10 @@ class CreatePostsTable extends Migration
                 ->default(0);
             $table->integer('metro_quadrado_privado')->nullable()
                 ->default(0);
+            $table->integer('latitude')->nullable()
+                ->default(0);
+            $table->integer('longitude')->nullable()
+                ->default(0);
             $table->decimal('valor', 15, 2);
             $table->tinyInteger('highlight')->default(0);
             $table->tinyInteger('status')->default(0);

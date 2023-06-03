@@ -98,20 +98,18 @@
     <div id="relacionados"></div>
 @endsection
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
-    <script type="text/javascript">
-        var map = new ol.Map({
-            target: 'map',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })
-            ],
-            view: new ol.View({
-                center: ol.proj.fromLonLat([-5.9318354,-35.2917425]),
-                zoom: 4
-            })
-        });
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([{{$post->latitude}}, {{$post->longitude}}], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var marker = L.marker([{{$post->latitude}}, {{$post->longitude}}]).addTo(map);
+        marker.bindPopup("<b>{{$post->title}}</b><br>{{$post->description}}").openPopup();
     </script>
     <script>
         $(document).ready(function(){
@@ -175,5 +173,7 @@
     </script>
 @endsection
 @section('mapcss')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
 @endsection

@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{asset('dropify/css/dropify.css')}}">
     <link rel="stylesheet" href="{{asset('dropify/fonts/dropify.ttf')}}">
     <link rel="stylesheet" href="{{asset('assets/css/select2.css')}}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
     <style>
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #007bff;
@@ -248,6 +251,47 @@
                         </div>
                     @endif
                 </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text"
+                                   name="latitude"
+                                   id="latitude"
+                                   class="form-control
+                                   @error('latitude') is-invalid @enderror"
+                                   value="{{ isset($model) ? $model->latitude :
+                                   old('latitude') }}">
+                            @error('latitude')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text"
+                                   name="longitude"
+                                   id="longitude"
+                                   class="form-control
+                                   @error('longitude') is-invalid @enderror"
+                                   value="{{ isset($model) ? $model->longitude :
+                                   old('longitude') }}">
+                            @error('longitude')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-5">
+                        <div id="map" style="height: 500px;width: 100%">
+                            {{--                    Carrega mapa aqui--}}
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">
                         {{ isset($model) ? 'Atualizar '.$subtitle : 'Criar '.$subtitle }}
@@ -288,9 +332,6 @@
             </div>
         @endisset
     </div>
-        </div>
-    </div>
-
 @endsection
 @section('adminlte_js')
     <script src="{{asset('assets\vendor\jquery\jquery-3.5.1.min.js')}}"></script>
@@ -301,6 +342,39 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
     <script src="{{asset('assets/js/ckeditor-menu.js')}}"></script>
     <script src="{{asset('assets/js/city-and-neighborhoods.js')}}"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+    </script>
+    <script>
+        var map;
+        var marker;
+        carregarMapa({{$model->latitude}}, {{$model->longitude}}, "{{$model->title}}", "{{$model->description}}");
+        function carregarMapa (lat, long, title, description) {
+            map = L.map('map').setView([lat, long], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            marker = L.marker([lat || 0, long || 0]).addTo(map);
+            marker.bindPopup("<b>" + title || "" + "</b><br>" + description || "").openPopup();
+        }
+        function onMapClick(e) {
+            var latitude = document.getElementById("latitude");
+            var longitude = document.getElementById("longitude");
+            //alert("Lat e Long: " + e.latlng.toString());
+            var lat = e.latlng.lat;
+            var long = e.latlng.lng;
+            latitude.value = lat;
+            longitude.value = long;
+            marker.remove();
+            marker = L.marker([lat, long]).addTo(map);
+            marker.bindPopup("<b>{{$model->title}}</b><br>{{$model->description}}").openPopup();
+        }
+
+        map.on('click', onMapClick);
+    </script>
     <script>
         $("#city").change(function(){
             const baseUrl = `<?= env('APP_URL') ?>`;
@@ -346,4 +420,5 @@
             decimal: ','
         })
     </script>
+
 @stop
