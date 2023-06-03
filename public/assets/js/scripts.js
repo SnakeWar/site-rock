@@ -38,3 +38,19 @@ $("#close-acessibilidade").click(function() {
 });
 
 
+// Formulário oportunidade
+var divFixa = document.getElementById("formFixo");
+var divFixaTop = divFixa.offsetTop;
+var div2 = document.getElementById("relacionados");
+var div2Top = div2.offsetTop;
+
+window.onscroll = function() {
+    if (window.pageYOffset >= divFixaTop && window.pageYOffset < div2Top) {
+        divFixa.style.top = (window.pageYOffset - divFixaTop + 50) + "px";
+    } else if (window.pageYOffset >= div2Top) {
+        divFixa.style.top = (div2Top - divFixa.offsetHeight) + "px";
+    } else {
+        divFixa.style.top = "50px";
+    }
+};
+

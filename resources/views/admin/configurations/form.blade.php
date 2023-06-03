@@ -16,7 +16,8 @@
             <h1 class="card-title">{{$subtitle}}</h1>
         </div>
         <div class="card-body">
-            <form action="{{ isset($model) ? route($admin . '.update', $model->id) : route($admin. '.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ isset($model) ? route($admin . '.update', $model->id) : route($admin. '.store')}}"
+                  method="post" enctype="multipart/form-data">
 
                 @csrf
                 @if(!empty($model))
@@ -32,7 +33,6 @@
                     </div>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="">Conteúdo</label>
                     <textarea type="text" id="editor" name="value" cols="30" rows="10"
@@ -42,6 +42,12 @@
                         {{$message}}
                     </div>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="html" checked="checked">
+                        <label class="form-check-label" for="exampleCheck1">Conteúdo é HTML</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-block btn-lg btn-primary">

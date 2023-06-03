@@ -11,12 +11,30 @@
                         <div class="card shadow-sm">
                             <a class="stretched-link" href="{{route('post', ['slug' => $item->slug])}}"></a>
                             <div class="owl-carousel">
-                                <div>
-                                    <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">
+                                <div
+                                    style="
+                                        background-image: url('{{asset("storage/thumbnail/".$item->photo)}}');
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                        background-size: cover;
+                                        height: 300px;
+                                        width: 100%;
+                                        "
+                                >
+{{--                                    <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">--}}
                                 </div>
                                 @foreach($item->photos as $photo)
-                                    <div>
-                                        <img src="{{asset("storage/thumbnail/".$photo->photo)}}" alt="{{$item->title}}">
+                                    <div
+                                        style="
+                                            background-image: url('{{asset("storage/thumbnail/".$photo->photo)}}');
+                                            background-repeat: no-repeat;
+                                            background-position: center;
+                                            background-size: cover;
+                                            height: 300px;
+                                            width: 100%;
+                                            "
+                                    >
+{{--                                        <img src="{{asset("storage/thumbnail/".$photo->photo)}}" alt="{{$item->title}}">--}}
                                     </div>
                                 @endforeach
                             </div>

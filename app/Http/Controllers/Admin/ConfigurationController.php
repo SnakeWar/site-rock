@@ -55,16 +55,29 @@ class ConfigurationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ConfigurationRequest $request)
     {
         $data = $request->all();
 
+        $html = $request->input('html');
+        echo $html;
+        die();
+        if (!$html) {
+            $data['value'] = strip_tags($data['value']);
+        }
+
         $model = $this->model->create($data);
 
-        flash($this->subtitle . ' Criada com Sucesso!')->success();
-        return redirect()->route($this->admin . '.index');
+        if ($model) {
+            flash($this->subtitle . ' Criada com Sucesso!')->success();
+            return redirect()->route($this->admin . '.index');
+        } else {
+            flash('Aconteceu um erro!')->danger();
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -107,10 +120,21 @@ class ConfigurationController extends Controller
         $data = $request->all();
 
         $model = $this->model->find($id);
+
+        $html = $request->input('html');
+        if (!$html) {
+            $data['value'] = strip_tags($data['value']);
+        }
+
         $model->update($data);
 
-        flash($this->subtitle . ' Atualizada com Sucesso!')->success();
-        return redirect()->route($this->admin . '.index');
+        if ($model) {
+            flash($this->subtitle . ' Atualizado com Sucesso!')->success();
+            return redirect()->route($this->admin . '.index');
+        } else {
+            flash('Aconteceu um erro!')->danger();
+            return redirect()->back();
+        }
     }
 
     /**

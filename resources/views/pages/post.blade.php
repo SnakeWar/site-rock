@@ -31,7 +31,12 @@
                         </div>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <div class="d-flex justify-content-between align-items-center mt-5">
+                            <div class="d-flex justify-content-end align-items-center mt-5 propriedade-oportunidade-preco">
+                                @if($post->valor > 0)
+                                    <small class="text-muted"><strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
+                                @endif
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-5 propriedade-oportunidade">
                                 @if($post->dormitorios > 0)
                                     <small class="text-muted">{{$post->dormitorios}} <i class="fas fa fa-bed"></i></small>
                                 @endif
@@ -47,9 +52,6 @@
                                 @if($post->metro_quadrado_total > 0)
                                     <small class="text-muted">{{$post->metro_quadrado_total}} <strong>m² Total</strong></small>
                                 @endif
-                                @if($post->valor > 0)
-                                    <small class="text-muted"> | <strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
-                                @endif
                             </div>
                             <hr>
                         </section>
@@ -58,13 +60,59 @@
                             {!! $post->body !!}
                         </section>
                     </article>
+                    <div class="row my-5">
+                        <div id="map" class="map"></div>
+                    </div>
                 </div>
                 @include('pages.layouts.side-page.side-page')
             </div>
+            <div class="row">
+                <div class="col-12 my-5">
+                    <h1 class="fw-bolder mb-1">Veja outras oportunidades semelhantes</h1>
+                </div>
+                @foreach($posts ?? [] as $item)
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{asset("storage/thumbnail/".$item->photo)}}" class="card-img-top object-fit-cover" height="150" alt="{{$item->title}}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$item->title}}</h5>
+                                @if($post->valor > 0)
+                                    <small class="text-muted"><strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
+                                    <p class="card-text">{{$item->description}}</p>
+                                @endif
+                                <a href="{{route('post', ['slug' => $item->slug])}}" class="stretched-link"></a>
+                            </div>
+                        </div>
+                        {{--                            <li class="">--}}
+                        {{--                                <a class="link-dark text-decoration-none" href="{{route('post', ['slug' => $item->slug])}}">--}}
+                        {{--                                    <button class="btn btn-sm btn-outline-secondary mb-1">--}}
+                        {{--                                        {{$item->title}}--}}
+                        {{--                                    </button>--}}
+                        {{--                                </a>--}}
+                        {{--                            </li>--}}
+                    </div>
+                @endforeach
+            </div>
         </div>
     </main>
+    <div id="relacionados"></div>
 @endsection
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
+    <script type="text/javascript">
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([-5.9318354,-35.2917425]),
+                zoom: 4
+            })
+        });
+    </script>
     <script>
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({
@@ -125,4 +173,7 @@
             });
         });
     </script>
+@endsection
+@section('mapcss')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css" type="text/css">
 @endsection

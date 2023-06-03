@@ -21,7 +21,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = Str::random(8);
+        $title = Str::random(15);
         $number = new Number();
         $metro_quadrado = $number->numberBetween(300, 1000);
         $metro_quadrado_privado = $metro_quadrado - $metro_quadrado / 100 * 10;
@@ -29,7 +29,7 @@ class PostFactory extends Factory
         $neighborhood = $city == 1 ? $number->numberBetween(1, 2) : $number->numberBetween(3, 4);
         return [
             'title' => $title,
-            'description' => Str::random(10) . ' - ' . City::findOrFail($city)->title . ' - ' . CityNeighborhoods::findOrFail($neighborhood)->title,
+            'description' => Str::random(20) . ' - ' . City::findOrFail($city)->title . ' - ' . CityNeighborhoods::findOrFail($neighborhood)->title,
             'published_at' => now(),
             'body' => Str::random(100),
             'slug' => Str::slug($title),
@@ -39,7 +39,7 @@ class PostFactory extends Factory
             'metro_quadrado_total' => $metro_quadrado,
             'metro_quadrado_privado' => $metro_quadrado_privado,
             'valor' => $number->randomFloat(100000000, 1000000),
-            'photo' => 'posts/teste.png',
+            'photo' => 'posts/aATLKkTh30mgj7ov3OFnZMbHRnLyoFJwinyrtbo6.jpg',
             'city_id' => $city,
             'city_neighborhoods_id' => $neighborhood,
             'status' => 1,

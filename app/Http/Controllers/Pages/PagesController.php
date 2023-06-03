@@ -143,7 +143,7 @@ class PagesController extends Controller
         $cityId = $post->categories->first()->id ?? 0;
         $posts = $this->post->with('categories')
             ->whereNot('id', $post->id)
-            ->where('city_id', $post->city_id)->limit(10)->get();
+            ->where('city_id', $post->city_id)->limit(5)->get();
         $cities = $this->city->all();
         $tags = $this->tag->all();
         return view('pages.post', [

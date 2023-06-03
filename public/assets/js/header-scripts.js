@@ -16,16 +16,15 @@ window.addEventListener('DOMContentLoaded', event => {
         if (!navbarCollapsible) {
             return;
         }
-        // if (window.scrollY === 0) {
-        //     navbarCollapsible.classList.remove('navbar-shrink');
-        //     if (url.includes('/oportunidade/') || url.includes('/page/') || url.includes('/oportunidades')) {
-        //         console.log(url);
-        //         navbarCollapsible.classList.add('navbar-shrink')
-        //         navbarCollapsible.classList.remove('fixed-top')
-        //     }
-        // } else {
-        //     navbarCollapsible.classList.add('navbar-shrink')
-        // }
+        if (window.scrollY === 0) {
+            navbarCollapsible.classList.remove('navbar-shrink');
+            if (url.includes('/oportunidade/') || url.includes('/page/') || url.includes('/oportunidades')) {
+                navbarCollapsible.classList.add('navbar-shrink')
+                navbarCollapsible.classList.remove('transparente')
+            }
+        } else {
+            navbarCollapsible.classList.add('navbar-shrink')
+        }
     };
 
     // Shrink the navbar

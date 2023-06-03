@@ -1,5 +1,5 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-shrink" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-dark transparente" id="mainNav">
     <div class="container">
         <a href="{{route('home')}}">
             <img class="logo" id="logo" src="{{asset('assets/img/logo-branco-preto.webp')}}" alt="Logo">

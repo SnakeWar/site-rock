@@ -4,7 +4,7 @@
             <button type="button" class="btn text-bg-dark" data-bs-toggle="modal" data-bs-target="#formModal"
                     data-bs-whatever="@mdo">Entre em contato
             </button>
-            @include('pages.layouts.form._form_contato')
+            @include('pages.layouts.form._form_contato_modal')
         </p>
         <p class="mb-1"><img class="logo-footer" src="{{asset('assets/img/logo-preto-branco.webp')}}" alt=""></p>
 {{--        <p><strong>{{ env('APP_NAME', 'Site') }}</strong></p>--}}

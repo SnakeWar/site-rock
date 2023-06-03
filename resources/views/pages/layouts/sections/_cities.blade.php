@@ -7,11 +7,14 @@
         </div>
         <div class="row justify-content-center">
             @foreach($cities as $item)
-                <div class="col p-0 position-relative img-cities"
-                     style="background-image: url({{asset('storage'). '/' . $item->photo}});">
-                    <div class="cidades-item">
-                        <p class="titulo-cidade position-absolute z-1">{{$item->title}}</p>
-                    </div>
+                <div class="col p-0 img-cities"
+                     style="
+                         background-image: url({{asset('storage'). '/' . $item->photo}});
+                         background-repeat: no-repeat;
+                         background-position: center;
+                         background-size: cover;
+                         ">
+                        <p class="titulo-cidade">{{$item->title}}</p>
                     <a class="stretched-link cidades-link" href="{{route("buscar-por") . "?city=". $item->id}}"></a>
                 </div>
             @endforeach
