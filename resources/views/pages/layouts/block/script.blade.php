@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/scripts.js') }}"></script>
 @yield('scripts')
 @yield('mudarBairros')
+@yield('noUiSliderJs')
 @yield('numberMask')
 @yield('carousel-posts')
 @yield('form')

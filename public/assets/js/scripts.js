@@ -37,20 +37,22 @@ $("#close-acessibilidade").click(function() {
     $('.acessibilidade').removeClass("active");
 });
 
+if (window.location.href.includes('/oportunidade/')) {
+    // Formulário oportunidade
+    var divFixa = document.getElementById("formFixo");
+    var divFixaTop = divFixa.offsetTop;
+    var div2 = document.getElementById("relacionados");
+    var div2Top = div2.offsetTop;
 
-// Formulário oportunidade
-var divFixa = document.getElementById("formFixo");
-var divFixaTop = divFixa.offsetTop;
-var div2 = document.getElementById("relacionados");
-var div2Top = div2.offsetTop;
+    window.onscroll = function () {
 
-window.onscroll = function() {
-    if (window.pageYOffset >= divFixaTop && window.pageYOffset < div2Top) {
-        divFixa.style.top = (window.pageYOffset - divFixaTop + 50) + "px";
-    } else if (window.pageYOffset >= div2Top) {
-        divFixa.style.top = (div2Top - divFixa.offsetHeight) + "px";
-    } else {
-        divFixa.style.top = "50px";
-    }
-};
+        if (window.pageYOffset >= divFixaTop && window.pageYOffset < div2Top) {
+            divFixa.style.top = (window.pageYOffset - divFixaTop + 50) + "px";
+        } else if (window.pageYOffset >= div2Top) {
+            divFixa.style.top = (div2Top - divFixa.offsetHeight) + "px";
+        } else {
+            divFixa.style.top = "50px";
+        }
+    };
+}
 

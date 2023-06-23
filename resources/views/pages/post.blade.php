@@ -31,10 +31,13 @@
                         </div>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <div class="d-flex justify-content-end align-items-center mt-5 propriedade-oportunidade-preco">
+                            <div class="d-flex justify-content-end align-items-center mt-3 propriedade-oportunidade-preco">
                                 @if($post->valor > 0)
                                     <small class="text-muted"><strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
                                 @endif
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <a target="_blank" href="{{$configuration['APP_WHATSAPP']}}%20{{route('post', ['slug' => $post->slug])}}." class="btn cor-whatsapp text-uppercase"><strong>Whatsapp</strong></a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-5 propriedade-oportunidade">
                                 @if($post->dormitorios > 0)

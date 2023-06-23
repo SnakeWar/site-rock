@@ -45,13 +45,30 @@
     overflow-y: hidden;
 }
 
+.propriedade-oportunidade-preco-p small {
+    font-size: 1.5rem;
+    color: #da9c62 !important;
+}
+
 .propriedade-oportunidade-preco small {
     font-size: 2rem;
     color: #da9c62 !important;
 }
 
+.cor-whatsapp {
+    background: #2ecc71 !important;
+    color: #FFFFFF !important;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-family: Sans-Serif;
+}
+
 .propriedade-oportunidade small {
     font-size: 1.5rem;
+}
+
+.propriedade-oportunidade-p small {
+    font-size: 1rem;
 }
 
 .nav-scroller .nav {
@@ -161,7 +178,7 @@
     margin-right: auto;
 }
 header.masthead {
-    height: 800px;
+    height: 950px;
     padding-top: 14rem;
     padding-bottom: 12.5rem;
 }
@@ -229,9 +246,10 @@ header.masthead {
     background: none;
 }
 .masthead__bg_search_form {
-    background-color: #0a0a0a;
+    background-color: rgba(0,0,0, 0.8);
     border-radius: 15px;
     padding: 15px 15px;
+    color: whitesmoke;
 }
 .masthead__input_text {
     color: whitesmoke;
@@ -263,6 +281,18 @@ header.masthead {
 }
 .form-select__white_border {
     border-bottom-color: whitesmoke;
+}
+.noUi-handle {
+    border-color: orange !important;
+    border-radius: 50px !important;
+    width: 28px !important;
+}
+.noUi-touch-area {
+    background-color: orange !important;
+    border-radius: 50px;
+}
+.noUi-handle:after, .noUi-handle:before {
+    content: unset !important;
 }
 .bg-black {
     background-color: rgb(33,37,41) !important;
@@ -306,22 +336,31 @@ header.masthead {
 .titulo-inicial {
     margin-bottom: 100px;
 }
+
+.cidades-link {
+    text-decoration: none;
+}
+
 .titulo-cidade {
-    position: relative;
     font-size: 1.5rem;
     color: whitesmoke;
     background-color: rgba(0,0,0, 0.5);
     background-size: cover;
-    margin-top: 20%;
-    text-align: center;
+    padding: 0px 20px;
 }
 .img-cities {
+    position: relative;
     background-size: cover;
     background-repeat: no-repeat;
     filter: grayscale(1);
     transition: transform 2s, filter 2s;
     height: 300px;
     width: 100%;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .img-cities:hover {
     transform: scale(0.9);
@@ -351,6 +390,13 @@ header.masthead {
     }
     .titulo-cidade {
         font-size: 1.5rem;
+    }
+    header.masthead {
+        height: 950px;
+        padding-top: 100px;
+    }
+    .logo {
+        width: 40px;
     }
 }
 /* Cookies css */

@@ -350,7 +350,7 @@
     <script>
         var map;
         var marker;
-        carregarMapa({{$model->latitude}}, {{$model->longitude}}, "{{$model->title}}", "{{$model->description}}");
+        carregarMapa({{isset($model) ? $model?->latitude : 0}}, {{isset($model) ? $model?->longitude : 0}}, "{{isset($model) ? $model?->title : ''}}", "{{isset($model) ? $model?->description : ''}}");
         function carregarMapa (lat, long, title, description) {
             map = L.map('map').setView([lat, long], 13);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -370,7 +370,7 @@
             longitude.value = long;
             marker.remove();
             marker = L.marker([lat, long]).addTo(map);
-            marker.bindPopup("<b>{{$model->title}}</b><br>{{$model->description}}").openPopup();
+            marker.bindPopup("<b>{{isset($model) ? $model?->title : ''}}</b><br>{{isset($model) ? $model?->description : ''}}").openPopup();
         }
 
         map.on('click', onMapClick);

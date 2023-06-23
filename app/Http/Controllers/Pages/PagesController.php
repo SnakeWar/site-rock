@@ -88,8 +88,10 @@ class PagesController extends Controller
         $cityId = $city ?? $request->input('city');
         $neighborhoodId = $request->input('neighborhood') ?? null;
         $configuration = $this->configuration->whereCode('SOBRE_MIM')->first();
+        $min = $request->input('min') ?? null;
+        $max = $request->input('max') ?? null;
 
-        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId);
+        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId, $min, $max);
 
         $categories = $this->category->all();
         $tags = $this->tag->all();
@@ -113,8 +115,10 @@ class PagesController extends Controller
         $search = $search ?? $request->input('search');
         $cityId = $request->input('city') ?? null;
         $neighborhoodId = $request->input('neighborhood') ?? null;
+        $min = $request->input('min') ?? null;
+        $max = $request->input('max') ?? null;
 
-        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId);
+        $posts = $this->searchPosts($category, $tag, $search, $cityId, $neighborhoodId, $min, $max);
 
         $categories = $this->category->all();
         $tags = $this->tag->all();
@@ -123,7 +127,7 @@ class PagesController extends Controller
         return view('pages.posts', [
             'posts' => $posts->orderBy('id', 'desc')
                 ->paginate(6)
-                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag, 'city' => $request->city, 'neighborhood' => $request->neighborhood]),
+                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag, 'city' => $request->city, 'neighborhood' => $request->neighborhood, 'min' => $request->min, 'max' => $request->max]),
             'categories' => $categories,
             'tags' => $tags,
             'cities' => $cities,
@@ -182,7 +186,7 @@ class PagesController extends Controller
         }
     }
 
-    private function searchPosts($category, $tag, $search, $cityId, $neighborhoodId)
+    private function searchPosts($category, $tag, $search, $cityId, $neighborhoodId, $min, $max)
     {
         $posts = $this->post
             ->with(['categories', 'tags', 'photos'])
@@ -211,6 +215,10 @@ class PagesController extends Controller
             $posts->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tags.id', $tag);
             });
+        }
+
+        if($min && $max) {
+            $posts->whereBetween('valor', [$min, $max]);
         }
 
         if ($cityId && $neighborhoodId) {

@@ -41,6 +41,11 @@
                             <div class="card-body">
                                 <p class="card-text bold">{{$item->title}}</p>
                                 <p class="card-text">{{$item->description}}</p>
+                                <div class="d-flex justify-content-end align-items-center mt-5 propriedade-oportunidade-preco-p">
+                                    @if($item->valor > 0)
+                                        <small class="text-muted"><strong>R$</strong> {{number_format($item->valor, 2, ',', '.')}}</small>
+                                    @endif
+                                </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     @if($item->dormitorios > 0)
                                         <small class="text-muted">{{$item->dormitorios}} <i class="fas fa fa-bed"></i></small>
@@ -57,9 +62,6 @@
                                     @if($item->metro_quadrado_total > 0)
                                         <small class="text-muted">{{$item->metro_quadrado_total}} <strong>m² Total</strong></small>
                                     @endif
-                                    @if($item->valor > 0)
-                                        <small class="text-muted"> | <strong>R$</strong> {{number_format($item->valor, 2, ',', '.')}}</small>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -73,7 +75,7 @@
             </div>
             @if($paginado)
                 <div class="row justify-content-center paginacao mt-5">
-                    <div class="col-4">
+                    <div class="col-auto">
                         {{$posts->appends(Request::get('search', 'category', 'tag', 'city', 'neighborhood'))->links('vendor.pagination.bootstrap-4')}}
                     </div>
                 </div>
