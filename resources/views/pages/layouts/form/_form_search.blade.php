@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row mt-1 p-1 justify-content-center">
-            <div class="col-auto mb-lg-0 mb-lg-5 my-3">
+            <div class="col-auto mb-lg-0 mb-lg-1 my-3">
                 <span id="rangeValueMin"></span> - <span id="rangeValueMax"></span>
                 <div id="noUiSlider" class="my-2"></div><br>
                 <input type="hidden" name="min" value="{{$menorPreco}}" id="min">
