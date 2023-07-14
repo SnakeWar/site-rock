@@ -25,7 +25,7 @@
                         <div class="owl-carousel">
                             <!-- Preview image figure-->
                             <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$post->photo)}}" alt="{{$post->title}}" />
-                            @foreach($post->photos ?? [] as $photo)
+                            @foreach($post->photos()->orderBy('photos_order', 'asc')->get() ?? [] as $photo)
                                 <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$photo->photo)}}" alt="{{$post->title}}" />
                             @endforeach
                         </div>

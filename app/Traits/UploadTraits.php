@@ -22,7 +22,7 @@ trait UploadTraits
             ->insert(public_path("/watermark/watermark.png"), 'center')
             ->save(public_path("/storage/") . $caminho, 60)
             // Redimensionada a imagem
-            ->resize(300, 300, function($constraint){
+            ->resize(500, 500, function($constraint){
                 $constraint->aspectRatio();
             })
             // Pega a imagem redimensionada e salva na pasta thumbnail
@@ -41,7 +41,7 @@ trait UploadTraits
                 ->insert(public_path("/watermark/watermark.png"), 'center')
                 ->save(public_path("/storage/") . $uploadImages[$key]['photo'], 60)
                 // Redimensionada a imagem
-                ->resize(300, 300, function($constraint){
+                ->resize(500, 500, function($constraint){
                     $constraint->aspectRatio();
                 })
                 // Pega a imagem redimensionada e salva na pasta thumbnail
@@ -57,7 +57,7 @@ trait UploadTraits
             ->insert(public_path("/watermark/watermark.png"), 'center')
             ->save(public_path($dir), 60)
             // Redimensionada a imagem
-            ->resize(300, 300, function($constraint){
+            ->resize(500, 500, function($constraint){
                 $constraint->aspectRatio();
             })
             // Pega a imagem redimensionada e salva na pasta thumbnail

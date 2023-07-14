@@ -1,3 +1,6 @@
+:root {
+    --dourado: #da9c62;
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -47,12 +50,12 @@
 
 .propriedade-oportunidade-preco-p small {
     font-size: 1.5rem;
-    color: #da9c62 !important;
+    color: var(--dourado) !important;
 }
 
 .propriedade-oportunidade-preco small {
     font-size: 2rem;
-    color: #da9c62 !important;
+    color: var(--dourado) !important;
 }
 
 .cor-whatsapp {
@@ -179,19 +182,26 @@
 }
 header.masthead {
     height: 950px;
-    padding-top: 14rem;
+    padding-top: 14rem !important;
     padding-bottom: 12.5rem;
 }
 .logo {
-    width: 80px;
+    width: 120px;
 }
 .logo-footer {
-    width: 80px;
+    width: 120px;
+}
+footer a:hover {
+    color: var(--dourado) !important;
 }
 .redes-sociais li a i {
     color: white !important;
     font-size: 30px;
     margin-left: 10px;
+}
+.btn-ver-mais {
+    color: var(--dourado);
+    border-color: var(--dourado);
 }
 /*Configuração Owl Carousel */
 .owl-nav button {
@@ -283,12 +293,12 @@ header.masthead {
     border-bottom-color: whitesmoke;
 }
 .noUi-handle {
-    border-color: orange !important;
+    border-color: var(--dourado) !important;
     border-radius: 50px !important;
     width: 28px !important;
 }
 .noUi-touch-area {
-    background-color: orange !important;
+    background-color: var(--dourado) !important;
     border-radius: 50px;
 }
 .noUi-handle:after, .noUi-handle:before {
@@ -308,7 +318,7 @@ header.masthead {
     color: #0a0a0a !important;
 }
 .icon-hover:hover {
-    color: #ffc800 !important;
+    color: var(--dourado) !important;
 }
 .error-404 {
     padding: 100px !important;
@@ -396,7 +406,7 @@ header.masthead {
         padding-top: 100px;
     }
     .logo {
-        width: 40px;
+        width: 80px;
     }
 }
 /* Cookies css */

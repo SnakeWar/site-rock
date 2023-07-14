@@ -24,3 +24,10 @@
             }
         </script>
 @endsection
+@section('numberMask')
+    <script>
+        $(document).ready(function(){
+            $('#telephone').mask('(99) 99999-9999');
+        });
+    </script>
+@endsection

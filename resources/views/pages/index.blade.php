@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
 @section('content')
     <!-- Masthead-->
-    <header class="masthead pt-sm-0"
+    <header class="masthead"
             style="
                 background: url({{asset('assets/img/casa-background-filtro.webp')}});
                 background-repeat: no-repeat;

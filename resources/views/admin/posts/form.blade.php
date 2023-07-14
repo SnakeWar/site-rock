@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #007bff;
@@ -317,13 +318,20 @@
                         </div>
                     </div>
                 </form>
-                <div class="row">
-                    @foreach($model->photos as $photo)
+                <div class="row" id="photo-list-container">
+                    @foreach($model->photos()->orderBy('photos_order', 'asc')->get() as $photo)
                         <div class="col-lg-3 col-md-6 col-sm-12">
-                            <form action="{{route('admin.post_photo_remove')}}" method="post">
+                            <form action="{{route('admin.post_photo_remove')}}" method="post" class="remove-form" data-photo-id="{{$photo->id}}">
                                 @csrf
                                 <input type="hidden" name="photoName" value="{{$photo->photo}}">
-                                <button type="submit" class="btn btn-sm btn-danger my-2"><i class="fa fa-trash"></i></button>
+                                <div class="row justify-content-between">
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-sm btn-danger my-2"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="form-control my-2" disabled value="{{$photo->photos_order}}">
+                                    </div>
+                                </div>
                             </form>
                             <img src="{{asset('storage/' . $photo->photo)}}" alt="" class="img-thumbnail">
                         </div>
@@ -420,5 +428,97 @@
             decimal: ','
         })
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        removePhotoForm();
+        function removePhotoForm() {
+            document.querySelectorAll('.remove-form').forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
 
+                    var photoId = form.dataset.photoId;
+                    var formData = new FormData(form);
+
+                    axios.post('{{route("admin.post_photo_remove")}}', formData)
+                        .then(function(response) {
+                            toastr.success('Foto removida com sucesso.');
+
+                            // Recriar a lista de fotos
+                            updatePhotoList(response.data.photos);
+                        })
+                        .catch(function(error) {
+                            toastr.error('Ocorreu um erro ao remover a foto.');
+
+                            console.error(error);
+                        });
+                });
+            });
+        }
+
+        function updatePhotoList(photos) {
+            var photoListContainer = document.getElementById('photo-list-container');
+            photoListContainer.innerHTML = '';
+
+            photos.forEach(function(photo) {
+                var photoDiv = document.createElement('div');
+                photoDiv.classList.add('col-lg-3', 'col-md-6', 'col-sm-12');
+
+                var form = document.createElement('form');
+                form.action = '{{route("admin.post_photo_remove")}}';
+                form.method = 'post';
+                form.classList.add('remove-form');
+                form.dataset.photoId = photo.id;
+
+                var csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}';
+
+                var inputHidden = document.createElement('input');
+                inputHidden.type = 'hidden';
+                inputHidden.name = 'photoName';
+                inputHidden.value = photo.photo;
+
+                var rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'justify-content-between');
+
+                var colDiv1 = document.createElement('div');
+                colDiv1.classList.add('col-4');
+
+                var button = document.createElement('button');
+                button.type = 'submit';
+                button.classList.add('btn', 'btn-sm', 'btn-danger', 'my-2');
+                button.innerHTML = '<i class="fa fa-trash"></i>';
+
+                var colDiv2 = document.createElement('div');
+                colDiv2.classList.add('col-4');
+
+                var inputNumber = document.createElement('input');
+                inputNumber.type = 'number';
+                inputNumber.classList.add('form-control', 'my-2');
+                inputNumber.disabled = true;
+                inputNumber.value = photo.photos_order;
+
+                form.appendChild(csrfToken);
+                form.appendChild(inputHidden);
+                colDiv1.appendChild(button);
+                colDiv2.appendChild(inputNumber);
+                rowDiv.appendChild(colDiv1);
+                rowDiv.appendChild(colDiv2);
+                form.appendChild(rowDiv);
+                photoDiv.appendChild(form);
+
+                var img = document.createElement('img');
+                img.src = '{{asset("storage/")}}' + '/' + photo.photo;
+                img.alt = '';
+                img.classList.add('img-thumbnail');
+
+                photoDiv.appendChild(img);
+                photoListContainer.appendChild(photoDiv);
+            });
+
+            removePhotoForm();
+        }
+    </script>
 @stop

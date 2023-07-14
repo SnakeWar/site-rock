@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark transparente" id="mainNav">
     <div class="container">
         <a href="{{route('home')}}">
-            <img class="logo" id="logo" src="{{asset('assets/img/logo-branco-preto.webp')}}" alt="Logo">
+            <img class="logo" id="logo" src="{{asset('assets/img/logo-branco-preto.png')}}" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu

@@ -23,7 +23,7 @@
                                 >
 {{--                                    <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">--}}
                                 </div>
-                                @foreach($item->photos as $photo)
+                                @foreach($item->photos()->orderBy('photos_order', 'asc')->get() as $photo)
                                     <div
                                         style="
                                             background-image: url('{{asset("storage/thumbnail/".$photo->photo)}}');
@@ -76,7 +76,13 @@
             @if($paginado)
                 <div class="row justify-content-center paginacao mt-5">
                     <div class="col-auto">
-                        {{$posts->appends(Request::get('search', 'category', 'tag', 'city', 'neighborhood'))->links('vendor.pagination.bootstrap-4')}}
+                        {{$posts->appends(Request::get('search', 'category', 'tag', 'city', 'neighborhood', ',min', 'max'))->links('vendor.pagination.bootstrap-4')}}
+                    </div>
+                </div>
+            @else
+                <div class="row justify-content-center mt-5">
+                    <div class="col-auto">
+                        <a href="{{route('posts')}}" class="btn btn-ver-mais">Veja mais</a>
                     </div>
                 </div>
             @endif

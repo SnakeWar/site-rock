@@ -81,7 +81,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->except(['categories', 'tags']);
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = $this->setTitleAttribute($data['title']);
         $data['published_at'] = \Helper::convertdata_todb($data['published_at']);
         $data['valor'] = \Helper::convertCurrencyBRToUS($data['valor']);
         $categories = $request->get('categories', null);
@@ -230,5 +230,18 @@ class PostController extends Controller
             flash('Esse post deixou de ser destaque!')->warning();
             return redirect()->back();
         }
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $slug = Str::slug($value);
+        $matchs = $this->uniqueSlug($slug);
+        return $matchs ? $slug . '-' . $matchs : $slug;
+    }
+
+    public function uniqueSlug($slug)
+    {
+        $matchs = $this->model->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->count();
+        return $matchs;
     }
 }

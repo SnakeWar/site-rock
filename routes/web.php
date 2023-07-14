@@ -15,20 +15,20 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/foo', function () {
 //     Artisan::call('storage:link');
 // });
- Route::get('/limpar-cache', function () {
-     Artisan::call('config:clear');
-     Artisan::call('route:clear');
-     Artisan::call('view:clear');
- });
-Route::get('/limpar-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
-});
-Route::get('/resetar-banco', function () {
-    Artisan::call('migrate:fresh');
-    Artisan::call('db:seed');
-});
+//Route::get('/limpar-cache', function () {
+//     Artisan::call('config:clear');
+//     Artisan::call('route:clear');
+//     Artisan::call('view:clear');
+// });
+//Route::get('/limpar-cache', function () {
+//    Artisan::call('config:clear');
+//    Artisan::call('route:clear');
+//    Artisan::call('view:clear');
+//});
+//Route::get('/resetar-banco', function () {
+//    Artisan::call('migrate:fresh');
+//    Artisan::call('db:seed');
+//});
 Route::post(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar');
 Route::get(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar-por');
 Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
