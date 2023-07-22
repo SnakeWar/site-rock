@@ -303,7 +303,7 @@
         @isset($model)
             <div class="card-footer">
                 <hr>
-                <form action="{{route('admin.post_photo_add', $model->id)}}" method="post" enctype="multipart/form-data">
+                <form id="photoForm" action="{{route('admin.post_photo_add', $model->id)}}" method="post" enctype="multipart/form-data" class="add-form">
                     @csrf
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -314,7 +314,7 @@
                             <label class="custom-file-label" for="photos">Escolha suas fotos</label>
                         </div>
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-outline-primary" id="inputGroupFileAddon04">Enviar Fotos</button>
+                            <button onclick="uploadPhotos()" class="btn btn-outline-primary" id="buttonForm">Enviar Fotos</button>
                         </div>
                     </div>
                 </form>
@@ -432,6 +432,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         removePhotoForm();
+
+        function uploadPhotos() {
+            const formElement = document.getElementById('photoForm');
+            const formData = new FormData(formElement);
+            const formElementButton = document.getElementById('buttonForm');
+
+            // Aviso de upload
+            toastr.warning('Atualizando galeria, por favor aguarde...');
+            formElementButton.disabled = true;
+
+            // event.preventDefault();
+            axios.post('{{ route("admin.post_photo_add", $model->id) }}', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }).then(response => {
+                    toastr.success(response.data.message);
+
+                    // Recriar a lista de fotos
+                    updatePhotoList(response.data.photos);
+                    console.log(response.data);
+                    // Aviso de upload finalizado
+                    toastr.warning('Upload finalizado.');
+                    formElementButton.disabled = false;
+                })
+                .catch(error => {
+                    toastr.error('Ocorreu um erro ao remover a foto.');
+                    console.log(error);
+                });
+        }
+
         function removePhotoForm() {
             document.querySelectorAll('.remove-form').forEach(function(form) {
                 form.addEventListener('submit', function(event) {
@@ -443,14 +474,11 @@
                     axios.post('{{route("admin.post_photo_remove")}}', formData)
                         .then(function(response) {
                             toastr.success('Foto removida com sucesso.');
-
                             // Recriar a lista de fotos
                             updatePhotoList(response.data.photos);
                         })
                         .catch(function(error) {
                             toastr.error('Ocorreu um erro ao remover a foto.');
-
-                            console.error(error);
                         });
                 });
             });

@@ -38,11 +38,12 @@ class PostPhotosController extends Controller
         $removePhoto->delete();
 
         $photoList = PostPhotos::where('post_id', $postId)->orderBy('photos_order', 'asc')->get();
-
-        return response()->json(['photos' => $photoList]);
+        $postReordened = $this->updateOrder($photoList, $postId);
+        return response()->json(['message' => 'Foto removida com sucesso.', 'photos' => $postReordened]);
     }
 
-    public function addPhotos(Request $request, int $id) {
+    public function addPhotos(Request $request, int $id)
+    {
         $post = $this->model->find($id);
         if($request->hasFile('photos')){
             $images = $this->imagesUpload($request->file('photos'), $this->view, 'photo');
@@ -54,21 +55,22 @@ class PostPhotosController extends Controller
             }
             unset($image);
             $post->photos()->createMany($images);
-            flash('Foto(s) adicionadas com Sucesso!')->success();
-            return redirect()->route('admin.posts.edit', ['post' => $id])->withSuccess('Foto(s) adicionadas com sucesso!');
+            $photoList = PostPhotos::where('post_id', $id)->orderBy('photos_order', 'asc')->get();
+            $postReordened = $this->updateOrder($photoList, $id);
+            return response()->json(['message' => 'Foto(s) adicionada(s) com sucesso.', 'photos' => $postReordened]);
+        } else {
+            return response()->json(['message' => 'Nenhuma foto foi enviada.', 'photos' => $post->photos()->orderBy('photos_order')->get()]);
         }
     }
 
-    public function updateOrder(Request $request)
+    public function updateOrder($photos, $postId)
     {
-        $imageIds = $request->input('imageIds');
-
+        $index = 1;
         // Atualizar a ordem das imagens no banco de dados
-        foreach ($imageIds as $index => $imageId) {
-            PostPhotos::where('id', $imageId)
-                ->update(['photos_order' => $index + 1]);
+        foreach ($photos as  $photo) {
+            PostPhotos::where('id', $photo->id)
+                ->update(['photos_order' => $index++]);
         }
-
-        return response()->json(['message' => 'Ordem atualizada com sucesso.']);
+        return $this->model->find($postId)->photos()->orderBy('photos_order')->get();
     }
 }
