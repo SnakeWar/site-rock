@@ -437,13 +437,15 @@
             const formElement = document.getElementById('photoForm');
             const formData = new FormData(formElement);
             const formElementButton = document.getElementById('buttonForm');
+            const formElementButtonOportunidade = document.getElementById('buttonForm');
 
             // Aviso de upload
             toastr.warning('Atualizando galeria, por favor aguarde...');
             formElementButton.disabled = true;
+            formElementButtonOportunidade.disabled = true;
 
             // event.preventDefault();
-            axios.post('{{ route("admin.post_photo_add", $model->id) }}', formData, {
+            axios.post('{{ route("admin.post_photo_add", $model->id ?? 0) }}', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -452,14 +454,13 @@
 
                     // Recriar a lista de fotos
                     updatePhotoList(response.data.photos);
-                    console.log(response.data);
                     // Aviso de upload finalizado
                     toastr.warning('Upload finalizado.');
                     formElementButton.disabled = false;
+                formElementButtonOportunidade.disabled = false;
                 })
                 .catch(error => {
                     toastr.error('Ocorreu um erro ao remover a foto.');
-                    console.log(error);
                 });
         }
 
