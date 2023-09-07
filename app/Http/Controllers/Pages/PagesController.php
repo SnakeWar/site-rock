@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\HomeRequest;
 use App\Http\Requests\WorkwithusRequest;
+use App\Mail\SendContact;
 use App\Models\City;
 use App\Models\CityNeighborhoods;
 use App\Models\Configuration;
@@ -21,6 +22,7 @@ use App\Models\Response;
 use App\Models\Subsection;
 use App\Models\Workwithus;
 use App\Traits\UploadTraits;
+use Illuminate\Support\Facades\Mail;
 
 class PagesController extends Controller
 {
@@ -180,6 +182,7 @@ class PagesController extends Controller
 
         if ($contact) {
             flash(' Mensagem enviada com sucesso!')->success();
+            Mail::to('contato@viniciusaraujoimoveis.com.br')->send(new SendContact($data));
             return redirect()->back();
         } else {
             flash(' Erro ao enviar a mensagem!')->error();

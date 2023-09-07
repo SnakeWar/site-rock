@@ -37,7 +37,7 @@
                                 @endif
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <a target="_blank" href="{{$configuration['APP_WHATSAPP']}}%20{{route('post', ['slug' => $post->slug])}}." class="btn cor-whatsapp text-uppercase"><strong>Whatsapp</strong></a>
+                                <a target="_blank" href="{{str_replace("amp;", "", $configuration['APP_WHATSAPP'])}}%20{{route('post', ['slug' => $post->slug])}}." class="btn cor-whatsapp text-uppercase"><strong>Whatsapp</strong></a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-5 propriedade-oportunidade">
                                 @if($post->dormitorios > 0)
@@ -102,6 +102,15 @@
 @endsection
 @section('scripts')
     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: {{$post->latitude}}, lng: {{$post->longitude}}},
+                zoom: 8
+            });
+        }
+    </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>

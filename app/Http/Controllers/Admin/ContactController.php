@@ -42,7 +42,7 @@ class ContactController extends Controller
     public function index()
     {
         return view($this->admin . '.index', [
-            'model' => $this->model->get(),
+            'model' => $this->model->orderBy('created_at', 'DESC')->get(),
             'title' => $this->title,
             'subtitle' => $this->subtitle,
             'admin' => $this->admin,

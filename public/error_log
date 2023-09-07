@@ -1,0 +1,2 @@
+[21-Jun-2023 16:06:38 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home2/vini2301/site/storage/framework/views/440ba8a60a67f7464b0e2b90702b9f36.php on line 579
+[21-Jun-2023 16:08:09 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home2/vini2301/site/storage/framework/views/440ba8a60a67f7464b0e2b90702b9f36.php on line 579

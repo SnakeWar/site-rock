@@ -21,7 +21,7 @@
 {{--Acessibilidade--}}
 <body id="header-top">
 <div class="whatsapp">
-    <a target="_blank" href="{{$configuration['APP_WHATSAPP']}}"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
+    <a target="_blank" href="{{str_replace("amp;", "", $configuration['APP_WHATSAPP'])}}"><img src="{{asset('assets/img/whatsapp2.png')}}" alt="ícone whatsapp"></a>
 </div>
 {{--<a href="#" id="open-acessibilidade"><img src="{{asset('assets/img/icons/acessibilidade.svg')}}"></a>--}}
 
