@@ -10,8 +10,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{{Route::is('home') ? '#oportunities' : route('home') . '/#oportunities'}}">Oportunidades</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{Route::is('home') ? '#about' : route('home') . '/#about'}}">Quem Sou</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{Route::is('home') ? '#oportunities' : route('home') . '/#oportunities'}}">Oportunidades</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('blogs')}}">Blog</a></li>
             </ul>
         </div>
     </div>
