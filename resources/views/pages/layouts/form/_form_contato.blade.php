@@ -29,7 +29,7 @@
         @endif
     </div>
     <div class="mt-5 mb-2">
-        <button type="submit" class="btn text-bg-dark">Enviar</button>
+        <button type="submit" id="botao-enviar" class="btn text-bg-dark">Enviar</button>
     </div>
     <div class="mt-3">
         <div class="form-check">
@@ -40,3 +40,11 @@
         </div>
     </div>
 </form>
+@section('envio-facebook-pixel')
+    <!-- Facebook pixel -->
+    <script>
+        document.getElementById('botao-enviar').addEventListener('click', function() {
+            fbq('track', 'Lead');
+        });
+    </script>
+@endsection

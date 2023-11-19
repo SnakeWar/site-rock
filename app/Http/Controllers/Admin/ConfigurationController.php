@@ -62,8 +62,6 @@ class ConfigurationController extends Controller
         $data = $request->all();
 
         $html = $request->input('html');
-        echo $html;
-        die();
         if (!$html) {
             $data['value'] = strip_tags($data['value']);
         }

@@ -2,7 +2,7 @@
     <div class="album bg-light pt-5 pb-5">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase mb-5">Oportunidades @if(!$paginado)  em Destaque @endif</h2>
+                <h2 class="section-heading text-uppercase mb-5">Imóveis à Venda @if(!$paginado) Em Destaque  @endif</h2>
                 {{--                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>--}}
             </div>
             <div class="row row-cols-lg-3 row-cols-sm-1 row-cols-md-2 g-3 justify-content-center">
@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="card shadow-sm">
                             <a class="stretched-link" href="{{route('post', ['slug' => $item->slug])}}"></a>
-                            <div class="owl-carousel">
+                            <div class="">
                                 <div
                                     style="
                                         background-image: url('{{asset("storage/thumbnail/".$item->photo)}}');
@@ -23,23 +23,22 @@
                                 >
 {{--                                    <img src="{{asset("storage/thumbnail/".$item->photo)}}" alt="{{$item->title}}">--}}
                                 </div>
-                                @foreach($item->photos()->orderBy('photos_order', 'asc')->get() as $photo)
-                                    <div
-                                        style="
-                                            background-image: url('{{asset("storage/thumbnail/".$photo->photo)}}');
-                                            background-repeat: no-repeat;
-                                            background-position: center;
-                                            background-size: cover;
-                                            height: 300px;
-                                            width: 100%;
-                                            "
-                                    >
-{{--                                        <img src="{{asset("storage/thumbnail/".$photo->photo)}}" alt="{{$item->title}}">--}}
-                                    </div>
-                                @endforeach
+{{--                                @foreach($item->photos()->orderBy('photos_order', 'asc')->get() as $photo)--}}
+{{--                                    <div--}}
+{{--                                        style="--}}
+{{--                                            background-image: url('{{asset("storage/thumbnail/".$photo->photo)}}');--}}
+{{--                                            background-repeat: no-repeat;--}}
+{{--                                            background-position: center;--}}
+{{--                                            background-size: cover;--}}
+{{--                                            height: 300px;--}}
+{{--                                            width: 100%;--}}
+{{--                                            "--}}
+{{--                                    >--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
                             </div>
                             <div class="card-body">
-                                <p class="card-text bold">{{$item->title}}</p>
+                                <p class="card-text"><b>{{$item->title}}</b></p>
                                 <p class="card-text">{{$item->description}}</p>
                                 <div class="d-flex justify-content-end align-items-center mt-5 propriedade-oportunidade-preco-p">
                                     @if($item->valor > 0)
@@ -82,7 +81,7 @@
             @else
                 <div class="row justify-content-center mt-5">
                     <div class="col-auto">
-                        <a href="{{route('posts')}}" class="btn btn-ver-mais">Veja mais</a>
+                        <a href="{{route('posts')}}" class="btn btn-ver-mais text-uppercase">Veja mais</a>
                     </div>
                 </div>
             @endif

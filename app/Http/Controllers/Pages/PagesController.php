@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Http\Requests\HomeRequest;
 use App\Http\Requests\WorkwithusRequest;
 use App\Mail\SendContact;
+use App\Models\Blog;
 use App\Models\City;
 use App\Models\CityNeighborhoods;
 use App\Models\Configuration;
@@ -60,7 +61,8 @@ class PagesController extends Controller
         Tag               $tag,
         Configuration     $configuration,
         City              $city,
-        CityNeighborhoods $neighborhood
+        CityNeighborhoods $neighborhood,
+        Blog              $blog
     )
     {
         $this->category = $category;
@@ -69,6 +71,7 @@ class PagesController extends Controller
         $this->configuration = $configuration;
         $this->city = $city;
         $this->neighborhood = $neighborhood;
+        $this->blog = $blog;
     }
 
     /**
@@ -160,6 +163,78 @@ class PagesController extends Controller
             'img' => env('APP_URL') . '/storage/' . $post->photo,
             'description' => $post->description,
             'cities' => $cities,
+            'tags' => $tags,
+            'posts' => $posts
+        ]);
+    }
+
+    public function blogs(HomeRequest $request)
+    {
+        $category = $category ?? $request->input('category');
+        $tag = $tag ?? $request->input('tag');
+        $search = $search ?? $request->input('search');
+        $posts = $this->blog
+            ->with(['categories', 'tags'])
+            ->whereStatus(1)
+            ->whereDate('published_at', '<=', date('Y-m-d'));
+
+        if ($category && $category != "Categoria") {
+            $posts->whereHas('categories', function ($q) use ($category) {
+                $q->where('categories.id', $category);
+            });
+        }
+
+        if ($tag && $tag != "Tipo") {
+            $posts->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tags.id', $tag);
+            });
+        }
+
+        if ($search) {
+            $posts->where('title', 'like', '%' . $search . '%');
+        }
+
+        $categories = $this->category->all();
+        $tags = $this->tag->all();
+
+        return view('pages.blogs', [
+            'posts' => $posts->orderBy('id', 'desc')
+                ->paginate(6)
+                ->appends(['search' => $request->search, 'category' => $request->category, 'tag' => $request->tag]),
+            'categories' => $categories,
+            'tags' => $tags,
+            'pagina' => 'Home',
+            'paginado' => true
+        ]);
+    }
+
+    public function blog($slug)
+    {
+        $post = $this->blog->with(['categories', 'tags'])->whereStatus(1)->whereSlug($slug)->first();
+
+        if (empty($post)) {
+            abort(404);
+        }
+
+        $categoryIds = $post->categories->map(function($category) {
+            return $category->id;
+        });
+
+        $posts = $this->blog->with(['categories' => function ($query) use ($categoryIds) {
+            $query->whereIn('categories.id', $categoryIds);
+        }])
+            ->whereStatus(1)
+            ->where('id', '<>', $post->id)
+            ->limit(5)
+            ->get();
+
+        $tags = $this->tag->all();
+        return view('pages.blog', [
+            'post' => $post,
+            'pagina' => 'Blog',
+            'title' => env('APP_NAME', '') . ' - ' . $post->title,
+            'img' => env('APP_URL') . '/storage/' . $post->photo,
+            'description' => $post->description,
             'tags' => $tags,
             'posts' => $posts
         ]);

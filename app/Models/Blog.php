@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
-class Post extends Model
+class Blog extends Model
 {
     use HasFactory, SoftDeletes, Searchable;
 
@@ -44,18 +44,5 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
-    }
-    public function photos()
-    {
-        return $this->hasMany(PostPhotos::class);
-    }
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    public function neighborhood()
-    {
-        return $this->belongsTo(CityNeighborhoods::class);
     }
 }

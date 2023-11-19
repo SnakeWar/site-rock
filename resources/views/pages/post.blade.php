@@ -1,16 +1,13 @@
 @extends('pages.layouts.app')
 @section('content')
     <main>
-        <div class="container mt-5">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Post content-->
                     <article>
                         <!-- Post header-->
                         <header class="mb-4">
-                            <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">{{$post->title}}</h1>
-                            <hr class="underline">
                             <!-- Post meta content-->
 {{--                            <div class="text-muted fst-italic mb-2">{{\Carbon\Carbon::create($post->created_at)->diffForHumans()}}</div>--}}
                             <!-- Post categories-->
@@ -24,11 +21,14 @@
                         </header>
                         <div class="owl-carousel">
                             <!-- Preview image figure-->
-                            <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$post->photo)}}" alt="{{$post->title}}" />
+                            <img class="img-fluid rounded object-fit-contain w-100" height="400" src="{{asset("storage/".$post->photo)}}" alt="{{$post->title}}" />
                             @foreach($post->photos()->orderBy('photos_order', 'asc')->get() ?? [] as $photo)
                                 <img class="img-fluid rounded object-fit-contain w-100" height="500" src="{{asset("storage/".$photo->photo)}}" alt="{{$post->title}}" />
                             @endforeach
                         </div>
+                        <!-- Post title-->
+                        <hr class="underline">
+                        <h1 class="fw-bolder mb-1">{{$post->title}}</h1>
                         <!-- Post content-->
                         <section class="mb-5">
                             <div class="d-flex justify-content-end align-items-center mt-3 propriedade-oportunidade-preco">
@@ -50,10 +50,10 @@
                                     <small class="text-muted">{{$post->vagas_garagem}} <i class="fas fa fa-car"></i></small>
                                 @endif
                                 @if($post->metro_quadrado_privado > 0)
-                                    <small class="text-muted">{{$post->metro_quadrado_privado}} <strong>m² Privado</strong></small>
+                                    <small class="text-muted">{{$post->metro_quadrado_privado}} <strong>m² Construído</strong></small>
                                 @endif
                                 @if($post->metro_quadrado_total > 0)
-                                    <small class="text-muted">{{$post->metro_quadrado_total}} <strong>m² Total</strong></small>
+                                    <small class="text-muted">{{$post->metro_quadrado_total}} <strong>m² Terreno</strong></small>
                                 @endif
                             </div>
                             <hr>
@@ -71,7 +71,7 @@
             </div>
             <div class="row">
                 <div class="col-12 my-5">
-                    <h1 class="fw-bolder mb-1">Veja outras oportunidades semelhantes</h1>
+                    <h1 class="fw-bolder mb-1">Imóveis Semelhantes</h1>
                 </div>
                 @foreach($posts ?? [] as $item)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
@@ -79,8 +79,8 @@
                             <img src="{{asset("storage/thumbnail/".$item->photo)}}" class="card-img-top object-fit-cover" height="150" alt="{{$item->title}}">
                             <div class="card-body">
                                 <h5 class="card-title">{{$item->title}}</h5>
-                                @if($post->valor > 0)
-                                    <small class="text-muted"><strong>R$</strong> {{number_format($post->valor, 2, ',', '.')}}</small>
+                                @if($item->valor > 0)
+                                    <small class="text-muted"><strong>R$</strong> {{number_format($item->valor, 2, ',', '.')}}</small>
                                     <p class="card-text">{{$item->description}}</p>
                                 @endif
                                 <a href="{{route('post', ['slug' => $item->slug])}}" class="stretched-link"></a>
@@ -101,24 +101,32 @@
     <div id="relacionados"></div>
 @endsection
 @section('scripts')
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap" async defer></script>
-    <script>
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: {{$post->latitude}}, lng: {{$post->longitude}}},
-                zoom: 8
-            });
+    {{--    Script do schema --}}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Product",
+            "name": "{{$post->title}}",
+            "description": "{{$post->description}}",
+            "brand": {
+                "@type": "Brand",
+                "name": "{{env('APP_NAME')}}"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "BRL",
+                "price": "{{$post->valor}}",
+                "availability": "http://schema.org/InStock"
+            }
         }
     </script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+{{--Fim Script do schema--}}
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="{{asset('assets/js/leaflet.js')}}"></script>
     <script>
         var map = L.map('map').setView([{{$post->latitude}}, {{$post->longitude}}], 13);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         var marker = L.marker([{{$post->latitude}}, {{$post->longitude}}]).addTo(map);
         marker.bindPopup("<b>{{$post->title}}</b><br>{{$post->description}}").openPopup();

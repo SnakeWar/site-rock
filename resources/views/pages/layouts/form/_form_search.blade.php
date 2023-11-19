@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 mb-lg-0 mt-lg-5">
                 <div class="form-group">
-                    <input type="text" name="search" class="form-control form-control__white_border masthead__input_text" placeholder="Escreva o que procura aqui...">
+                    <input type="text" name="search" class="form-control form-control__white_border masthead__input_text" placeholder="">
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 mb-lg-0 mt-lg-5 mt-sm-2">

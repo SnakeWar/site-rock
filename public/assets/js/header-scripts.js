@@ -18,7 +18,12 @@ window.addEventListener('DOMContentLoaded', event => {
         }
         if (window.scrollY === 0) {
             navbarCollapsible.classList.remove('navbar-shrink');
-            if (url.includes('/oportunidade/') || url.includes('/page/') || url.includes('/oportunidades')) {
+            if (url.includes('/oportunidade/') ||
+                url.includes('/page/') ||
+                url.includes('/oportunidades') ||
+                url.includes('/postagens') ||
+                url.includes('/postagem')
+            ) {
                 navbarCollapsible.classList.add('navbar-shrink')
                 navbarCollapsible.classList.remove('transparente')
             }

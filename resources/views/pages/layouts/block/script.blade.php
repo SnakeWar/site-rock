@@ -14,3 +14,4 @@
 @yield('numberMask')
 @yield('carousel-posts')
 @yield('form')
+@yield('envio-facebook-pixel')

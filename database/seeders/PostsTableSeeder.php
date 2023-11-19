@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Traits\UploadTraits;
+use Database\Factories\PostFactory;
 use Faker\Core\Number;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -20,6 +21,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(50)->create();
+        PostFactory::factory(50)->create();
     }
 }

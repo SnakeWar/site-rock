@@ -6,7 +6,7 @@
                     <h1 class="modal-title fs-5" id="formModalLabel">Posso te ajudar a encontrar o imóvel que deseja</h1>
                     <p>Deixe seus dados de contato que irei te atender de forma especial</p>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" id="botao-enviar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @include('pages.layouts.form._form_contato')
@@ -28,6 +28,14 @@
     <script>
         $(document).ready(function(){
             $('#telephone').mask('(99) 99999-9999');
+        });
+    </script>
+@endsection
+@section('envio-facebook-pixel')
+    <!-- Seu script JavaScript -->
+    <script>
+        document.getElementById('botao-enviar').addEventListener('click', function() {
+            fbq('track', 'Lead');
         });
     </script>
 @endsection

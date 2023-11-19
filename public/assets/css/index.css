@@ -182,7 +182,7 @@
 }
 header.masthead {
     height: 950px;
-    padding-top: 14rem !important;
+    padding-top: 12rem !important;
     padding-bottom: 12.5rem;
 }
 .logo {
@@ -200,8 +200,13 @@ footer a:hover {
     margin-left: 10px;
 }
 .btn-ver-mais {
-    color: var(--dourado);
-    border-color: var(--dourado);
+    border-color: #0a0a0a !important;
+    background-color: #0a0a0a;
+    color: white;
+}
+.btn-ver-mais:hover {
+    color: #0a0a0a;
+    border-color: white;
 }
 /*Configuração Owl Carousel */
 .owl-nav button {
@@ -395,6 +400,12 @@ footer a:hover {
     }
 }
 @media screen and (max-width: 414px) {
+    header.masthead {
+        padding-top: 9rem !important;
+    }
+    .titulo-inicial {
+        margin-bottom: 15px;
+    }
     .img-cities {
         height: 150px;
     }

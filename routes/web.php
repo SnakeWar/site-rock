@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,15 @@ use Illuminate\Support\Facades\Route;
 //    Artisan::call('migrate:fresh');
 //    Artisan::call('db:seed');
 //});
-Route::post(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar');
-Route::get(   '/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar-por');
-Route::get(   '/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
-Route::get(   '/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
-Route::get(   '/oportunidades', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('posts');
+Route::post('/postagens/buscar', [App\Http\Controllers\Pages\PagesController::class, 'blogs'])->name('blog-buscar');
+Route::get('/postagens/buscar', [App\Http\Controllers\Pages\PagesController::class, 'blogs'])->name('blog-buscar-por');
+Route::get('/postagem/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'blog'])->name('blog');
+Route::get('/postagens', [App\Http\Controllers\Pages\PagesController::class, 'blogs'])->name('blogs');
+Route::post('/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar');
+Route::get('/oportunidades/buscar', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('buscar-por');
+Route::get('/', [App\Http\Controllers\Pages\PagesController::class, 'index'])->name('home');
+Route::get('/oportunidade/{slug}', [App\Http\Controllers\Pages\PagesController::class, 'post'])->name('post');
+Route::get('/oportunidades', [App\Http\Controllers\Pages\PagesController::class, 'posts'])->name('posts');
 Route::post('/enviar-form', [App\Http\Controllers\Pages\PagesController::class, 'enviar_form'])->name('enviar_form');
 Route::get('/page/{page}', [App\Http\Controllers\Pages\PagesController::class, 'page'])->name('page');
 
@@ -46,6 +51,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class)->middleware('can:read_posts');
     Route::post('posts/ativo/{id}', [App\Http\Controllers\Admin\PostController::class, 'ativo'])->name('posts.ativo')->middleware('can:update_posts');
     Route::post('posts/destaque/{id}', [App\Http\Controllers\Admin\PostController::class, 'destaque'])->name('posts.destaque')->middleware('can:update_posts');
+
+    Route::resource('blogs', App\Http\Controllers\Admin\BlogController::class)->middleware('can:read_blogs');
+    Route::post('blogs/ativo/{id}', [App\Http\Controllers\Admin\BlogController::class, 'ativo'])->name('blogs.ativo')->middleware('can:update_blogs');
+    Route::post('blogs/destaque/{id}', [App\Http\Controllers\Admin\BlogController::class, 'destaque'])->name('blogs.destaque')->middleware('can:update_blogs');
 
     Route::resource('contacts', App\Http\Controllers\Admin\ContactController::class)->middleware('can:read_contacts');
 
